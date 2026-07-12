@@ -12,14 +12,54 @@ A project for exploring automated job analysis and intelligence tools.
 
 Python version: 3.13
 
-Create environment:
+### Create virtual environment:
 
+```bash
 python -m venv .venv
+```
 
-Install dependencies:
+### Activate:
 
+Windows
+```bash
+source .venv/Scripts/activate
+```
+Linux
+```bash
+source .venv/bin/activate
+```
+### Install dependencies:
+
+```bash
 pip install -r requirements.txt
+```
+### Running
 
-Run:
+```bash
+python -m job_intelligence
+```
+### Testing
 
-python src/main.py
+```bash
+pytest
+```
+## Project Structure
+
+```text
+job-intelligence/
+├── src/
+│   └── job_intelligence/
+├── tests/
+├── pyproject.toml
+├── requirements.txt
+├── README.md
+└── .gitignore
+```
+
+## Features
+
+- [ ] Collect job posting data
+- [ ] Extract skills and requirements
+- [ ] Analyze job trends
+- [ ] Match candidate profiles to job postings
+- [ ] Generate job market insights
