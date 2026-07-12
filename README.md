@@ -47,16 +47,24 @@ pytest
 
 ```text
 job-intelligence/
+│
 ├── src/
 │   └── job_intelligence/
 │       ├── __init__.py
 │       ├── __main__.py
 │       ├── main.py
-│       └── models.py
+│       ├── models.py
+│       ├── parser.py
+│       └── loader.py
 │
 ├── tests/
 │   ├── test_main.py
-│   └── test_models.py
+│   ├── test_models.py
+│   ├── test_parser.py
+│   └── test_loader.py
+│
+├── data/
+│   └── sample_jobs.csv
 │
 ├── pyproject.toml
 ├── requirements.txt
