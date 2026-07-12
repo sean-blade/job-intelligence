@@ -11,3 +11,14 @@ def test_job_posting_creation():
 
     assert job.title == "Biomedical Engineer"
     assert job.company == "Example Corp"
+
+def test_job_posting_defaults():
+    job = JobPosting(
+        title="Research Engineer",
+        company="Example Corp",
+        location="Boston",
+        description="Biomechanics research"
+    )
+
+    assert job.skills == []
+    assert job.salary is None

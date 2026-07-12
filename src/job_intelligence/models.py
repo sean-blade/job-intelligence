@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 @dataclass
@@ -7,3 +7,5 @@ class JobPosting:
     company: str
     location: str
     description: str
+    skills: list[str] = field(default_factory=list)
+    salary: str | None = None
