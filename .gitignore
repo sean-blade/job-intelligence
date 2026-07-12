@@ -13,3 +13,6 @@ __pycache__/
 
 # VS Code settings
 .vscode/
+
+# Python Packaging
+*.egg-info/
