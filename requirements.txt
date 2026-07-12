@@ -1,0 +1,7 @@
+colorama==0.4.6
+iniconfig==2.3.0
+-e git+https://github.com/sean-blade/job-intelligence.git@7e20c45c8b116768ad8bf9e7fdb9ceaa07570b5c#egg=job_intelligence
+packaging==26.2
+pluggy==1.6.0
+Pygments==2.20.0
+pytest==9.1.1
