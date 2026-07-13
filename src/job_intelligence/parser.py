@@ -3,13 +3,13 @@ from .models import JobPosting
 from pathlib import Path
 
 
-SKILLS_FILE = Path("config/skills.json")
+DEFAULT_SKILLS_FILE = Path("config/skills.json")
 
-def load_skills() -> list[str]:
+def load_skills(filepath: Path = DEFAULT_SKILLS_FILE) -> list[str]:
     """
     Load known skills from a JSON file.
     """
-    with open(SKILLS_FILE, "r", encoding="utf-8") as file:
+    with open(filepath, "r", encoding="utf-8") as file:
         return json.load(file)
 
 
