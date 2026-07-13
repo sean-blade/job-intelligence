@@ -1,27 +1,29 @@
+import json
 from .models import JobPosting
+from pathlib import Path
 
 
-COMMON_SKILLS = [
-    "python",
-    "matlab",
-    "sql",
-    "machine learning",
-    "finite element analysis",
-    "fea",
-    "cad",
-]
+SKILLS_FILE = Path("config/skills.json")
+
+def load_skills() -> list[str]:
+    """
+    Load known skills from a JSON file.
+    """
+    with open(SKILLS_FILE, "r", encoding="utf-8") as file:
+        return json.load(file)
 
 
 def extract_skills(description: str) -> list[str]:
     """
     Extract known skills from a job description.
     """
+    skills = load_skills()
 
     description_lower = description.lower()
 
     found_skills = []
 
-    for skill in COMMON_SKILLS:
+    for skill in skills:
         if skill in description_lower:
             found_skills.append(skill)
 
