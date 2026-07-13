@@ -1,12 +1,13 @@
 import argparse
 
-from .analysis import skill_frequency
+from .analysis import skill_prevalence
 from .loader import load_jobs_from_csv
+from .report import format_skill_report
 
 def analyze_file(filepath: str):
     jobs = load_jobs_from_csv(filepath)
 
-    return skill_frequency(jobs)
+    return skill_prevalence(jobs)
 
 def main():
     parser = argparse.ArgumentParser(
@@ -29,14 +30,6 @@ def main():
     if args.command == "analyze":
         jobs = load_jobs_from_csv(args.filepath)
 
-        skills = skill_frequency(jobs)
+        skills = skill_prevalence(jobs)
 
-        print("\nTop Skills")
-        print("-" * 20)
-
-        for skill, count in sorted(
-            skills.items(),
-            key=lambda x: x[1],
-            reverse=True
-        ):
-            print(f"{skill}: {count}")
+        print(format_skill_report(skills))

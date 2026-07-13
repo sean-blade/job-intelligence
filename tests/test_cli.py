@@ -5,5 +5,5 @@ def test_analyze_file():
 
     result = analyze_file("data/sample_jobs.csv")
 
-    assert result["python"] == 2
+    assert result["python"] == 2 / 3
     assert "cad" in result
