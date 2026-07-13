@@ -9,3 +9,16 @@ class JobPosting:
     description: str
     skills: list[str] = field(default_factory=list)
     salary: str | None = None
+
+@dataclass
+class CandidateProfile:
+    name: str
+    skills: list[str] = field(default_factory=list)
+    # experience: str | None = None
+    education: list[str] = field(default_factory=list)
+    
+@dataclass
+class MatchResult:
+    score: float
+    matched_skills: list[str] = field(default_factory=list)
+    missing_skills: list[str] = field(default_factory=list)

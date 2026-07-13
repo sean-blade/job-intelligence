@@ -56,12 +56,17 @@ job-intelligence/
 │       ├── models.py
 │       ├── parser.py
 │       └── loader.py
+│       └── report.py
+│       └── cli.py
+│       └── analysis.py
+│       └── .py
 │
 ├── tests/
 │   ├── test_main.py
 │   ├── test_models.py
 │   ├── test_parser.py
-│   └── test_loader.py
+│   ├── test_loader.py
+│   └── test_.py
 │
 ├── data/
 │   └── sample_jobs.csv
