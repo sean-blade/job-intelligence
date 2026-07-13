@@ -25,3 +25,13 @@ def test_parse_job_description():
     assert job.title == "Biomedical Engineer"
     assert "python" in job.skills
     assert "cad" in job.skills
+
+def test_custom_skill_file(tmp_path):
+    # Create a temporary skills file
+    skills_file = tmp_path / "skills.json"
+    skills_file.write_text('["python", "docker"]', encoding="utf-8")
+
+    description = "Looking for an engineer with Python and docker experience."
+    result = extract_skills(description, skills_file=skills_file)
+
+    assert result == ["python", "docker"]

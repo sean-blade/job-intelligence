@@ -13,11 +13,11 @@ def load_skills(filepath: Path = DEFAULT_SKILLS_FILE) -> list[str]:
         return json.load(file)
 
 
-def extract_skills(description: str) -> list[str]:
+def extract_skills(description: str, skills_file: Path = DEFAULT_SKILLS_FILE) -> list[str]:
     """
     Extract known skills from a job description.
     """
-    skills = load_skills()
+    skills = load_skills(skills_file)
 
     description_lower = description.lower()
 
