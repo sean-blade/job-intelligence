@@ -35,17 +35,18 @@ def parse_job_description(
     company: str,
     location: str,
     description: str,
+    skills_file: Path = DEFAULT_SKILLS_FILE
 ) -> JobPosting:
     """
     Convert raw job information into a JobPosting object.
     """
 
-    skills = extract_skills(description)
+    extracted = extract_skills(description, skills_file)
 
     return JobPosting(
         title=title,
         company=company,
         location=location,
         description=description,
-        skills=skills,
+        skills=extracted
     )

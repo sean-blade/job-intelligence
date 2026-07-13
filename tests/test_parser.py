@@ -1,13 +1,17 @@
 from job_intelligence.parser import extract_skills, parse_job_description
 
 
-def test_extract_skills():
+def test_extract_skills(tmp_path):
+    # Create a temporary skills file
+    skills_file = tmp_path / "skills.json"
+    skills_file.write_text('["python", "matlab", "finite element analysis"]', encoding="utf-8")
+
     description = """
     Looking for an engineer with Python,
     MATLAB, and finite element analysis experience.
     """
 
-    skills = extract_skills(description)
+    skills = extract_skills(description, skills_file)
 
     assert "python" in skills
     assert "matlab" in skills
