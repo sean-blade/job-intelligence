@@ -5,14 +5,14 @@ from dataclasses import dataclass, field
 class JobPosting:
     title: str
     company: str
-    location: str
-    description: str
+    location: str | None = None
+    description: str | None = None
     skills: list[str] = field(default_factory=list)
     salary: str | None = None
 
 @dataclass
 class CandidateProfile:
-    name: str
+    name: str | None = None
     skills: list[str] = field(default_factory=list)
     # experience: str | None = None
     education: list[str] = field(default_factory=list)
