@@ -13,9 +13,9 @@ def test_extract_skills(tmp_path):
 
     skills = extract_skills(description, skills_file)
 
-    assert "python" in skills
-    assert "matlab" in skills
-    assert "finite element analysis" in skills
+    assert "python" in skills.required
+    assert "matlab" in skills.required
+    assert "finite element analysis" in skills.required
 
 
 def test_parse_job_description():
@@ -27,8 +27,8 @@ def test_parse_job_description():
     )
 
     assert job.title == "Biomedical Engineer"
-    assert "python" in job.skills
-    assert "cad" in job.skills
+    assert "python" in job.extracted_skills.required
+    assert "cad" in job.extracted_skills.required
 
 def test_custom_skill_file(tmp_path):
     # Create a temporary skills file
@@ -38,4 +38,5 @@ def test_custom_skill_file(tmp_path):
     description = "Looking for an engineer with Python and docker experience."
     result = extract_skills(description, skills_file=skills_file)
 
-    assert result == ["python", "docker"]
+    assert result.required == ["python", "docker"]
+    assert result.preferred == []

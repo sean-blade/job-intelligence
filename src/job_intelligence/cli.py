@@ -18,17 +18,6 @@ def main():
         description="Analyze job postings"
     )
 
-    # parser.add_argument(
-    #     "command",
-    #     choices=["analyze"],
-    #     help="Command to run"
-    # )
-
-    # parser.add_argument(
-    #     "filepath",
-    #     help="Path to job CSV file"
-    # )
-
     subparsers = parser.add_subparsers(dest="command")
     match_parser = subparsers.add_parser("match")
     analyze_parser = subparsers.add_parser("analyze")

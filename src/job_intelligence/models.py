@@ -1,5 +1,9 @@
 from dataclasses import dataclass, field
 
+@dataclass
+class ExtractedSkills:
+    required: list[str] = field(default_factory=list)
+    preferred: list[str] = field(default_factory=list)
 
 @dataclass
 class JobPosting:
@@ -7,9 +11,15 @@ class JobPosting:
     company: str
     location: str | None = None
     description: str | None = None
+    extracted_skills: ExtractedSkills = field(default_factory=ExtractedSkills)
     skills: list[str] = field(default_factory=list)
-    preferred_skills: list[str] = field(default_factory=list)
     salary: str | None = None
+
+    def __post_init__(self):
+        # If a flat `skills` list is provided (tests/legacy callers),
+        # populate `extracted_skills.required` so both APIs work.
+        if self.skills:
+            self.extracted_skills.required = self.skills
 
 @dataclass
 class CandidateProfile:

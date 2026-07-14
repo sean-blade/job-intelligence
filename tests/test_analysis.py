@@ -1,5 +1,5 @@
 from job_intelligence.analysis import skill_frequency, skill_prevalence
-from job_intelligence.models import JobPosting
+from job_intelligence.models import JobPosting, ExtractedSkills
 
 
 def test_skill_frequency():
@@ -34,14 +34,14 @@ def test_skill_prevalence():
             company="Company A",
             location="Remote",
             description="",
-            skills=["python", "matlab"],
+            extracted_skills=ExtractedSkills(required=["python", "matlab"]),
         ),
         JobPosting(
             title="Analyst",
             company="Company B",
             location="Remote",
             description="",
-            skills=["python", "sql"],
+            extracted_skills=ExtractedSkills(required=["python", "sql"]),
         ),
     ]
 

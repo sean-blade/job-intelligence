@@ -1,4 +1,4 @@
-from job_intelligence.models import CandidateProfile, JobPosting, MatchResult
+from job_intelligence.models import CandidateProfile, ExtractedSkills, JobPosting, MatchResult
 from job_intelligence.matcher import match_candidate
 
 def test_match_candidate():
@@ -58,7 +58,7 @@ def test_perfect_match():
         company="Tech Corp",
         location="Zimbabwe",
         description="Develop software applications",
-        skills=["Python", "cad"]
+        extracted_skills=ExtractedSkills(required=["python", "cad"])
     )
 
     # Create a temporary candidate profile with all required skills
@@ -72,7 +72,7 @@ def test_perfect_match():
     result = match_candidate(candidate, job)
 
     # Assert the match result
-    assert result.score == 1  # All required skills matched
+    assert result.score == 1 # All required skills matched
     assert set(result.matched_skills) == {"python", "cad"}
     assert set(result.missing_skills) == set()
 
@@ -83,7 +83,7 @@ def test_no_match():
         company="Tech Corp",
         location="Zimbabwe",
         description="Develop software applications",
-        skills=["Python", "cad"]
+        extracted_skills=ExtractedSkills(required=["Python", "cad"])
     )
 
     # Create a temporary candidate profile with no matching skills
@@ -108,8 +108,10 @@ def test_preferred_skills_increase_score():
         company="Test",
         location="Remote",
         description="",
-        skills=["python"],
-        preferred_skills=["cad"]
+        extracted_skills=ExtractedSkills(
+            required=["python", "cad"],
+            preferred=["sql"]
+        )
     )
 
     candidate = CandidateProfile(
@@ -120,4 +122,5 @@ def test_preferred_skills_increase_score():
     result = match_candidate(candidate, job)
 
     assert result.score == 1  # All required skills matched
-    assert set(result.preferred_matched_skills) == {"cad"}
+    assert set(result.matched_skills) == {"python", "cad"}
+    assert set(result.missing_skills) == set()

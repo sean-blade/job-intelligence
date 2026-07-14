@@ -1,4 +1,4 @@
-from job_intelligence.models import JobPosting
+from job_intelligence.models import JobPosting, ExtractedSkills
 
 
 def test_job_posting_creation():
@@ -20,5 +20,12 @@ def test_job_posting_defaults():
         description="Biomechanics research"
     )
 
-    assert job.skills == []
+    assert job.extracted_skills.required == []
+    assert job.extracted_skills.preferred == []
     assert job.salary is None
+
+def test_extracted_skills():
+    skills = ExtractedSkills()
+
+    assert skills.required == []
+    assert skills.preferred == []

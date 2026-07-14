@@ -1,7 +1,7 @@
 import csv
 from pathlib import Path
 from .parser import parse_job_description
-from .models import JobPosting
+from .models import JobPosting, ExtractedSkills
 
 
 def load_jobs_from_csv(filepath: str | Path) -> list[JobPosting]:
@@ -20,6 +20,7 @@ def load_jobs_from_csv(filepath: str | Path) -> list[JobPosting]:
                 company=row["company"],
                 location=row["location"],
                 description=row["description"],
+                skills_file=Path("config/skills.json") 
             )
 
             jobs.append(job)

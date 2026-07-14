@@ -21,12 +21,12 @@ def match_candidate(
 
     job_skills = {
         normalize_skill(skill)
-        for skill in job.skills
+        for skill in job.extracted_skills.required
     }
 
     preferred_job_skills = {
         normalize_skill(skill)
-        for skill in job.preferred_skills
+        for skill in job.extracted_skills.preferred
     }
 
 
@@ -35,6 +35,6 @@ def match_candidate(
     missing_skills = list(job_skills - candidate_skills)
     
     # Calculate a simple match score based on the number of matched skills
-    score = len(matched_skills) / len(job.skills) if job.skills else 1
+    score = len(matched_skills) / len(job.extracted_skills.required) if job.extracted_skills.required else 1
     
     return MatchResult(score=score, matched_skills=matched_skills, missing_skills=missing_skills, preferred_matched_skills=preferred_matched_skills)

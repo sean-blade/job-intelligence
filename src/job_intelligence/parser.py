@@ -1,5 +1,5 @@
 import json
-from .models import JobPosting
+from .models import JobPosting, ExtractedSkills
 from pathlib import Path
 
 
@@ -13,7 +13,7 @@ def load_skills(filepath: Path = DEFAULT_SKILLS_FILE) -> list[str]:
         return json.load(file)
 
 
-def extract_skills(description: str, skills_file: Path = DEFAULT_SKILLS_FILE) -> list[str]:
+def extract_skills(description: str, skills_file: Path = DEFAULT_SKILLS_FILE) -> ExtractedSkills:
     """
     Extract known skills from a job description.
     """
@@ -27,7 +27,10 @@ def extract_skills(description: str, skills_file: Path = DEFAULT_SKILLS_FILE) ->
         if skill in description_lower:
             found_skills.append(skill)
 
-    return found_skills
+    return ExtractedSkills(
+        required=found_skills,
+        preferred=[]  # Placeholder for future implementation
+    )
 
 
 def parse_job_description(
@@ -48,5 +51,5 @@ def parse_job_description(
         company=company,
         location=location,
         description=description,
-        skills=extracted
+        extracted_skills=extracted
     )

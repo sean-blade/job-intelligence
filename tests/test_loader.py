@@ -13,4 +13,4 @@ def test_load_jobs_from_csv():
 
     assert jobs[0].title == "Biomedical Engineer"
 
-    assert "python" in jobs[0].skills
+    assert "python" in jobs[0].extracted_skills.required

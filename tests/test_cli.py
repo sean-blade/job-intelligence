@@ -8,11 +8,9 @@ def test_analyze_file():
     result = analyze_file("data/sample_jobs.csv")
 
     assert result["python"] == 2 / 3
-    assert "cad" in result
+    assert result["cad"] == 1 / 3
 
 def test_match_command():
-
-
     # Run the CLI command for matching
     result = subprocess.run(
         [
