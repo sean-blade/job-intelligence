@@ -1,0 +1,40 @@
+from job_intelligence.normalization import normalize_skill
+from job_intelligence.models import CandidateProfile, JobPosting
+from job_intelligence.matcher import match_candidate
+
+
+def test_normalize_skill():
+    assert normalize_skill(" Python ") == "python"
+    assert normalize_skill("MATLAB") == "matlab"
+
+def test_match_is_case_insensitive():
+    job = JobPosting(
+        title="Engineer",
+        company="Test",
+        location="Remote",
+        description="",
+        skills=["Python"]
+    )
+
+    candidate = CandidateProfile(
+        name="Alice",
+        skills=["python"]
+    )
+
+    result = match_candidate(candidate, job)
+
+    assert result.score == 1
+
+def test_skill_aliases(tmp_path):
+    aliases_file = tmp_path / "aliases.json"
+
+    aliases_file.write_text(
+        # '{"fea": "finite element analysis"}',
+        '{"finite element analysis": ["fea", "fem", "finite element method"]}',
+        encoding="utf-8"
+    )
+
+    assert (
+        normalize_skill("FEA", aliases_file)
+        == "finite element analysis"
+    )

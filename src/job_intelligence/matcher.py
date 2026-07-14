@@ -1,5 +1,5 @@
 from job_intelligence.models import CandidateProfile, JobPosting, MatchResult
-
+from job_intelligence.normalization import normalize_skill
 def match_candidate(
         candidate: CandidateProfile,
         job: JobPosting
@@ -14,10 +14,27 @@ def match_candidate(
     Returns:
         MatchResult: The result of the matching process, including score and skill matches.
     """
-    matched_skills = list(set(candidate.skills) & set(job.skills))
-    missing_skills = list(set(job.skills) - set(candidate.skills))
+    candidate_skills = {
+        normalize_skill(skill)
+        for skill in candidate.skills
+    }
+
+    job_skills = {
+        normalize_skill(skill)
+        for skill in job.skills
+    }
+
+    preferred_job_skills = {
+        normalize_skill(skill)
+        for skill in job.preferred_skills
+    }
+
+
+    matched_skills = list(candidate_skills & job_skills)
+    preferred_matched_skills = list(candidate_skills & preferred_job_skills)
+    missing_skills = list(job_skills - candidate_skills)
     
     # Calculate a simple match score based on the number of matched skills
     score = len(matched_skills) / len(job.skills) if job.skills else 1
     
-    return MatchResult(score=score, matched_skills=matched_skills, missing_skills=missing_skills)
+    return MatchResult(score=score, matched_skills=matched_skills, missing_skills=missing_skills, preferred_matched_skills=preferred_matched_skills)

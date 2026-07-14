@@ -8,6 +8,7 @@ class JobPosting:
     location: str | None = None
     description: str | None = None
     skills: list[str] = field(default_factory=list)
+    preferred_skills: list[str] = field(default_factory=list)
     salary: str | None = None
 
 @dataclass
@@ -22,3 +23,4 @@ class MatchResult:
     score: float
     matched_skills: list[str] = field(default_factory=list)
     missing_skills: list[str] = field(default_factory=list)
+    preferred_matched_skills: list[str] = field(default_factory=list)

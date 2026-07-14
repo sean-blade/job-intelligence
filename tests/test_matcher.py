@@ -23,7 +23,7 @@ def test_match_candidate():
 
     # Assert the match result
     assert result.score == 2 / 3  # 2 matched skills out of 3 required skills
-    assert set(result.matched_skills) == {"Python", "cad"}
+    assert set(result.matched_skills) == {"python", "cad"}
     assert set(result.missing_skills) == {"sql"}
 
 def test_match_candidate_no_skills():
@@ -73,7 +73,7 @@ def test_perfect_match():
 
     # Assert the match result
     assert result.score == 1  # All required skills matched
-    assert set(result.matched_skills) == {"Python", "cad"}
+    assert set(result.matched_skills) == {"python", "cad"}
     assert set(result.missing_skills) == set()
 
 def test_no_match():
@@ -99,4 +99,25 @@ def test_no_match():
     # Assert the match result
     assert result.score == 0  # No required skills matched
     assert set(result.matched_skills) == set()
-    assert set(result.missing_skills) == {"Python", "cad"}
+    assert set(result.missing_skills) == {"python", "cad"}
+
+def test_preferred_skills_increase_score():
+
+    job = JobPosting(
+        title="Engineer",
+        company="Test",
+        location="Remote",
+        description="",
+        skills=["python"],
+        preferred_skills=["cad"]
+    )
+
+    candidate = CandidateProfile(
+        name="Alice",
+        skills=["python", "cad"]
+    )
+
+    result = match_candidate(candidate, job)
+
+    assert result.score == 1  # All required skills matched
+    assert set(result.preferred_matched_skills) == {"cad"}
