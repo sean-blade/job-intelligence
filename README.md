@@ -8,6 +8,26 @@ A project for exploring automated job analysis and intelligence tools.
 - Analyze job descriptions
 - Extract useful trends and insights
 
+## Current Status
+
+**Version:** v0.1.0
+
+### Completed
+- CSV job ingestion
+- Candidate profile loading
+- Skill extraction
+- Skill normalization and aliases
+- Candidate/job matching
+- Job ranking
+- Command-line interface
+- Automated testing
+- README structure automation
+
+### Planned (v0.2.0)
+- Smarter job description parsing
+- Required vs preferred skill detection
+- Experience matching
+- Education matching
 ## Development Setup
 
 Python version: 3.13
