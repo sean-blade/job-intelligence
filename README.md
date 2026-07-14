@@ -52,6 +52,7 @@ source .venv/bin/activate
 
 ```bash
 pip install -r requirements.txt
+pip install -e .
 ```
 ### Running
 
