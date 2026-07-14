@@ -38,4 +38,6 @@ def test_match_command():
     output = result.stdout
     assert "Biomedical Engineer" in output
     assert "Match Score:" in output  # 2 matched skills out of 3 required skills
+    assert "Matched Skills:" in output  # 2 matched skills out of 3 required skills
+    assert "Missing Skills:" in output  # 2 matched skills out of 3 required skills
     assert "Data Analyst" in output

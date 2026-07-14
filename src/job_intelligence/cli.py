@@ -58,8 +58,17 @@ def main():
     elif args.command == "match":
         candidate = load_candidate(args.candidate_file)
         jobs = load_jobs_from_csv(args.job_file)
+        matches = []
         for job in jobs:
             result = match_candidate(candidate, job)
+            matches.append((job, result))
+            # print("-" * 40)
+
+        matches.sort(key=lambda x: x[1].score, reverse=True)
+
+        for job, result in matches:
             print(f"Job: {job.title} at {job.company}")
-            print(f"Match Score: {result.score:.2f}")
+            print(f"Match Score: {result.score:.0%}")
+            print(f"Matched Skills: {', '.join(result.matched_skills) if result.matched_skills else 'None'}")
             print(f"Missing Skills: {', '.join(result.missing_skills) if result.missing_skills else 'None'}")
+            print()
