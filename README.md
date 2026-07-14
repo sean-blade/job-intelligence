@@ -44,39 +44,67 @@ python -m job_intelligence
 pytest
 ```
 ## Project Structure
+<!-- PROJECT_STRUCTURE_START -->
 
 ```text
 job-intelligence/
-│
-├── src/
-│   └── job_intelligence/
-│       ├── __init__.py
-│       ├── __main__.py
-│       ├── main.py
-│       ├── models.py
-│       ├── parser.py
-│       └── loader.py
-│       └── report.py
-│       └── cli.py
-│       └── analysis.py
-│       └── .py
-│
-├── tests/
-│   ├── test_main.py
-│   ├── test_models.py
-│   ├── test_parser.py
-│   ├── test_loader.py
-│   └── test_.py
-│
+├── .pytest_cache/
+│   ├── v/
+│   │   └── cache/
+│   │       ├── lastfailed
+│   │       └── nodeids
+│   ├── .gitignore
+│   ├── CACHEDIR.TAG
+│   └── README.md
+├── config/
+│   ├── aliases.json
+│   └── skills.json
 ├── data/
+│   ├── sample_candidate.json
 │   └── sample_jobs.csv
-│
+├── src/
+│   ├── job_intelligence/
+│   │   ├── __init__.py
+│   │   ├── __main__.py
+│   │   ├── analysis.py
+│   │   ├── candidate.py
+│   │   ├── candidate_loader.py
+│   │   ├── cli.py
+│   │   ├── loader.py
+│   │   ├── main.py
+│   │   ├── matcher.py
+│   │   ├── models.py
+│   │   ├── normalization.py
+│   │   ├── parser.py
+│   │   ├── rank_jobs.py
+│   │   └── report.py
+│   └── job_intelligence.egg-info/
+│       ├── dependency_links.txt
+│       ├── PKG-INFO
+│       ├── requires.txt
+│       ├── SOURCES.txt
+│       └── top_level.txt
+├── tests/
+│   ├── test_analysis.py
+│   ├── test_candidate_loader.py
+│   ├── test_cli.py
+│   ├── test_loader.py
+│   ├── test_main.py
+│   ├── test_matcher.py
+│   ├── test_models.py
+│   ├── test_normalize.py
+│   ├── test_parser.py
+│   ├── test_rank_jobs.py
+│   └── test_report.py
+├── tools/
+│   └── update_structure_readme.py
+├── .gitignore
 ├── pyproject.toml
-├── requirements.txt
 ├── README.md
-└── .gitignore
+└── requirements.txt
 ```
 
+<!-- PROJECT_STRUCTURE_END -->
 ## Features
 
 - [ ] Collect job posting data
