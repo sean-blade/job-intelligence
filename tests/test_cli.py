@@ -40,4 +40,5 @@ def test_match_command():
     assert "Match Score:" in output  # 2 matched skills out of 3 required skills
     assert "Matched Skills:" in output  # 2 matched skills out of 3 required skills
     assert "Missing Skills:" in output  # 2 matched skills out of 3 required skills
-    assert "Data Analyst" in output
+    assert output.index("Data Analyst") < output.index("Mechanical Engineer")
+    assert output.index("Mechanical Engineer") < output.index("Biomedical Engineer")
