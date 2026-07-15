@@ -124,3 +124,26 @@ def test_get_heading_idx_no_heading():
     )
 
     assert result is None
+
+
+def test_extract_required_and_preferred_skills():
+
+    description = """
+    Required:
+    Python
+    MATLAB
+
+    Preferred:
+    CAD
+    """
+
+    result = extract_skills(description)
+
+    assert result.required == [
+        "python",
+        "matlab"
+    ]
+
+    assert result.preferred == [
+        "cad"
+    ]
