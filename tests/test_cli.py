@@ -40,3 +40,20 @@ def test_match_command():
     assert "Missing Skills:" in output  # 2 matched skills out of 3 required skills
     assert output.index("Data Analyst") < output.index("Mechanical Engineer")
     assert output.index("Mechanical Engineer") < output.index("Biomedical Engineer")
+
+def test_analyze_command_categories():
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "job_intelligence",
+            "analyze",
+            "data/sample_jobs.csv"
+        ],
+        capture_output=True,
+        text=True
+    )
+
+    assert result.returncode == 0
+    assert "Top Categories" in result.stdout

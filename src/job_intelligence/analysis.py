@@ -1,7 +1,7 @@
 from collections import Counter
 
 from .models import JobPosting
-
+from .category import categorize_skill
 
 def skill_frequency(jobs: list[JobPosting]) -> dict[str, int]:
     """
@@ -29,3 +29,21 @@ def skill_prevalence(jobs: list[JobPosting]) -> dict[str, float]:
     total_jobs = len(jobs)
     
     return {skill: count / total_jobs for skill, count in frequencies.items()}
+
+def categorize_prevalance(jobs) -> dict[str, float]:
+    """
+    Categorize skills and calculate their prevalence across job postings.
+    """
+    category_count = {}
+    total_jobs = len(jobs)
+
+    for job in jobs:
+        categories = set()
+        for skill in job.extracted_skills.required:
+            category = categorize_skill(skill)
+            if category:
+                categories.add(category)
+        for category in categories:
+            category_count[category] = category_count.get(category, 0) + 1
+
+    return {category: count / total_jobs for category, count in category_count.items()}

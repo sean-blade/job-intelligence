@@ -2,7 +2,7 @@ import argparse
 
 from job_intelligence.rank_jobs import rank_jobs
 
-from .analysis import skill_prevalence
+from .analysis import skill_prevalence, categorize_prevalance
 from .loader import load_jobs_from_csv
 from .report import format_skill_report, format_match_report
 from .candidate_loader import load_candidate
@@ -43,8 +43,13 @@ def main():
         jobs = load_jobs_from_csv(args.filepath)
 
         skills = skill_prevalence(jobs)
+        categories = categorize_prevalance(jobs)
 
         print(format_skill_report(skills))
+        print("\nTop Categories")
+        print("--------------------")
+        for category, prevalence in categories.items():
+            print(f"Category: {category}: {prevalence:.2%}")
 
     elif args.command == "match":
         candidate = load_candidate(args.candidate_file)
