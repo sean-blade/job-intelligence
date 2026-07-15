@@ -35,7 +35,9 @@ def test_match_command():
     # Check that the output contains expected match information
     output = result.stdout
     assert "Biomedical Engineer" in output
-    assert "Match Score:" in output  # 2 matched skills out of 3 required skills
+    assert "Overall Match:" in output
+    assert "Skill Match:" in output
+    assert "Category Match:" in output
     assert "Matched Skills:" in output  # 2 matched skills out of 3 required skills
     assert "Missing Skills:" in output  # 2 matched skills out of 3 required skills
     assert output.index("Data Analyst") < output.index("Mechanical Engineer")

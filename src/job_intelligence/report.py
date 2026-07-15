@@ -21,7 +21,10 @@ def format_match_report(matches):
 
     for rank, (job, result) in enumerate(matches, start=1):
         lines.append(f"{rank}. {job.title} at {job.company}")
-        lines.append(f"Match Score: {result.score:.0%}")
+
+        lines.append(f"Overall Match: {result.score:.0%}")
+        lines.append(f"Skill Match: {result.skill_score:.0%}")
+        lines.append(f"Category Match: {result.category_score:.0%}")
 
         matched = (
             ", ".join(result.matched_skills)
@@ -35,8 +38,16 @@ def format_match_report(matches):
             else "None"
         )
 
+        categories = (
+            ", ".join(result.matched_categories)
+            if result.matched_categories
+            else "None"
+        )
+
         lines.append(f"Matched Skills: {matched}")
         lines.append(f"Missing Skills: {missing}")
+        lines.append(f"Matched Categories: {categories}")
+
         lines.append("-" * 40)
 
     return "\n".join(lines)

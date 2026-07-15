@@ -33,6 +33,11 @@ def test_format_match_report():
     report = format_match_report(matches)
 
     assert "Biomedical Engineer" in report
-    assert "Match Score:" in report
+    assert "Overall Match:" in report
+    assert "Skill Match:" in report
+    assert "Category Match:" in report
+    assert "Matched Skills:" in report
+    assert "Missing Skills:" in report
+    assert "Matched Categories:" in report
     assert "Matched Skills:" in report
     assert "Missing Skills:" in report
