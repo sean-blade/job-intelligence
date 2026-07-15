@@ -1,0 +1,17 @@
+{
+    "programming": [
+        "python",
+        "sql",
+        "c++"
+    ],
+
+    "engineering": [
+        "cad",
+        "finite element analysis"
+    ],
+
+    "data science": [
+        "machine learning",
+        "statistics"
+    ]
+}
