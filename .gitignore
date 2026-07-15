@@ -16,3 +16,5 @@ __pycache__/
 
 # Python Packaging
 *.egg-info/
+
+.pytest_cache/

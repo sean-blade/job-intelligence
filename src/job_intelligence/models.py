@@ -31,9 +31,10 @@ class CandidateProfile:
 @dataclass
 class MatchResult:
     score: float
-    matched_skills: list[str] = field(default_factory=list)
-    missing_skills: list[str] = field(default_factory=list)
+    missing_required_skills: list[str] = field(default_factory=list)
+    missing_preferred_skills: list[str] = field(default_factory=list)
     preferred_matched_skills: list[str] = field(default_factory=list)
+    required_matched_skills: list[str] = field(default_factory=list)
     matched_categories: set[str] = field(default_factory=set)
     category_score: float = 0.0
     skill_score: float = 0.0

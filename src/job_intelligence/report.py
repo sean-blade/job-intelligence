@@ -25,28 +25,48 @@ def format_match_report(matches):
         lines.append(f"Overall Match: {result.score:.0%}")
         lines.append(f"Skill Match: {result.skill_score:.0%}")
         lines.append(f"Category Match: {result.category_score:.0%}")
-
-        matched = (
-            ", ".join(result.matched_skills)
-            if result.matched_skills
+        lines.append("")
+        missing_required = (
+            ", ".join(result.missing_required_skills)
+            if result.missing_required_skills
             else "None"
-        )
-
-        missing = (
-            ", ".join(result.missing_skills)
-            if result.missing_skills
+        )        
+        
+        missing_preferred = (
+            ", ".join(result.missing_preferred_skills)
+            if result.missing_preferred_skills
             else "None"
         )
 
         categories = (
-            ", ".join(result.matched_categories)
+            ", ".join(sorted(result.matched_categories))
             if result.matched_categories
             else "None"
         )
 
-        lines.append(f"Matched Skills: {matched}")
-        lines.append(f"Missing Skills: {missing}")
+        required = (
+            ", ".join(result.required_matched_skills)
+            if result.required_matched_skills
+            else "None"
+        )
+
+        preferred= (
+            ", ".join(result.preferred_matched_skills)
+            if result.preferred_matched_skills
+            else "None"
+        )
+
+        lines.append(f"Matched Required Skills: {required}")
+        lines.append("")
+        lines.append(f"Matched Preferred Skills: {preferred}")
+        lines.append("")
         lines.append(f"Matched Categories: {categories}")
+        lines.append("")
+        lines.append(f"Missing Required Skills: {missing_required}")
+        lines.append("")
+        lines.append(f"Missing Preferred Skills: {missing_preferred}")
+        lines.append("")
+        
 
         lines.append("-" * 40)
 

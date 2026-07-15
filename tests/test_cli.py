@@ -38,8 +38,11 @@ def test_match_command():
     assert "Overall Match:" in output
     assert "Skill Match:" in output
     assert "Category Match:" in output
-    assert "Matched Skills:" in output  # 2 matched skills out of 3 required skills
-    assert "Missing Skills:" in output  # 2 matched skills out of 3 required skills
+    assert "Matched Required Skills" in output
+    assert "Matched Preferred Skills" in output
+    assert "Missing Required Skills" in output
+    assert "Missing Preferred Skills" in output
+
     assert output.index("Data Analyst") < output.index("Mechanical Engineer")
     assert output.index("Mechanical Engineer") < output.index("Biomedical Engineer")
 

@@ -25,8 +25,8 @@ def test_match_candidate():
     assert result.skill_score == 2 / 3
     assert result.category_score == 1.0
     assert result.score == 0.7666666666666666
-    assert set(result.matched_skills) == {"python", "cad"}
-    assert set(result.missing_skills) == {"sql"}
+    assert set(result.required_matched_skills) == {"python", "cad"}
+    assert set(result.missing_required_skills) == {"sql"}
     assert "programming" in result.matched_categories
 
 
@@ -52,8 +52,8 @@ def test_match_candidate_no_skills():
 
     # Assert the match result
     assert result.score == 1  # No required skills, so score is 1
-    assert set(result.matched_skills) == set()
-    assert set(result.missing_skills) == set()
+    assert set(result.required_matched_skills) == set()
+    assert set(result.missing_required_skills) == set()
 
 
 def test_perfect_match():
@@ -78,8 +78,8 @@ def test_perfect_match():
 
     # Assert the match result
     assert result.score == 1 # All required skills matched
-    assert set(result.matched_skills) == {"python", "cad"}
-    assert set(result.missing_skills) == set()
+    assert set(result.required_matched_skills) == {"python", "cad"}
+    assert set(result.missing_required_skills) == set()
     assert result.category_score == 1.0
 
 
@@ -130,34 +130,11 @@ def test_no_match():
     assert result.skill_score == 0
     assert result.category_score > 0 
     assert result.score > 0
-    assert set(result.matched_skills) == set()
-    assert set(result.missing_skills) == {"python", "cad"}
+    assert set(result.required_matched_skills) == set()
+    assert set(result.preferred_matched_skills) == set()
+    assert set(result.missing_preferred_skills) == set()
+    assert set(result.missing_required_skills) == {"python", "cad"}
 
-
-def test_preferred_skills_increase_score():
-
-    job = JobPosting(
-        title="Engineer",
-        company="Test",
-        location="Remote",
-        description="",
-        extracted_skills=ExtractedSkills(
-            required=["python", "cad"],
-            preferred=["sql"]
-        )
-    )
-
-    candidate = CandidateProfile(
-        name="Alice",
-        skills=["python", "cad"]
-    )
-
-    result = match_candidate(candidate, job)
-
-    assert result.score == 1  # All required skills matched
-    assert set(result.matched_skills) == {"python", "cad"}
-    assert set(result.missing_skills) == set()
-    assert "programming" in result.matched_categories
 
 def test_category_only_match():
 
@@ -198,7 +175,7 @@ def test_preferred_skill_match():
 
     result = match_candidate(candidate, job)
 
-    assert result.matched_skills == ["python"]
+    assert result.required_matched_skills == ["python"]
     assert result.preferred_matched_skills == ["cad"]
 
 
@@ -241,5 +218,25 @@ def test_preferred_skill_does_not_replace_required():
 
     result = match_candidate(candidate, job)
 
-    assert result.missing_skills == ["matlab"]
+    assert result.missing_required_skills == ["matlab"]
     assert result.skill_score == 0.5
+
+
+def test_missing_skills():
+    job = JobPosting(
+        title="Engineer",
+        company="Company",
+        extracted_skills=ExtractedSkills(
+            required=["python", "matlab"],
+            preferred=["cad"]
+        )
+    )
+
+    candidate = CandidateProfile(
+        name="Alice",
+        skills=["python"]
+    )
+
+    result = match_candidate(candidate, job)
+    assert set(result.missing_required_skills) == {"matlab"}
+    assert set(result.missing_preferred_skills) == {"cad"}
