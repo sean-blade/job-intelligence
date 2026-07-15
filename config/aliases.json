@@ -1,15 +1,27 @@
 {
+    "python": [
+        "python 3",
+        "python3",
+        "python programming"
+    ],
+    "matlab": [
+        "matlab scripting"
+    ],
     "finite element analysis": [
         "fea",
         "fem",
         "finite element method"
     ],
     "machine learning": [
-        "ml"
+        "ml",
+        "machine-learning"
     ],
     "cad": [
         "computer aided design",
         "computer-aided design",
         "c.a.d."
+    ],
+    "sql": [
+        "structured query language"
     ]
 }

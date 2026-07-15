@@ -38,3 +38,15 @@ def test_skill_aliases(tmp_path):
         normalize_skill("FEA", aliases_file)
         == "finite element analysis"
     )
+
+
+def test_existing_skill_aliases():
+    assert normalize_skill("FEA") == "finite element analysis"
+    assert normalize_skill("FEM") == "finite element analysis"
+    assert normalize_skill("computer-aided design") == "cad"
+    assert normalize_skill("C.A.D.") == "cad"
+
+
+def test_normalization_case_and_whitespace():
+    assert normalize_skill("  FEA  ") == "finite element analysis"
+    assert normalize_skill("CAD") == "cad"
