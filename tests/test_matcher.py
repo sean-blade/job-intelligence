@@ -1,6 +1,6 @@
 from job_intelligence.models import CandidateProfile, ExtractedSkills, JobPosting, MatchResult
 from job_intelligence.matcher import match_candidate
-import pytest
+
 def test_match_candidate():
     # Create a temporary job posting
     job = JobPosting(
@@ -29,6 +29,7 @@ def test_match_candidate():
     assert set(result.missing_skills) == {"sql"}
     assert "programming" in result.matched_categories
 
+
 def test_match_candidate_no_skills():
     # Create a temporary job posting with no required skills
     job = JobPosting(
@@ -53,6 +54,7 @@ def test_match_candidate_no_skills():
     assert result.score == 1  # No required skills, so score is 1
     assert set(result.matched_skills) == set()
     assert set(result.missing_skills) == set()
+
 
 def test_perfect_match():
     # Create a temporary job posting
@@ -131,6 +133,7 @@ def test_no_match():
     assert set(result.matched_skills) == set()
     assert set(result.missing_skills) == {"python", "cad"}
 
+
 def test_preferred_skills_increase_score():
 
     job = JobPosting(
@@ -175,3 +178,68 @@ def test_category_only_match():
 
     assert result.skill_score == 0
     assert result.category_score == 1.0
+
+
+def test_preferred_skill_match():
+
+    job = JobPosting(
+        title="Engineer",
+        company="Company",
+        extracted_skills=ExtractedSkills(
+            required=["python"],
+            preferred=["cad"]
+        )
+    )
+
+    candidate = CandidateProfile(
+        name="Alice",
+        skills=["python", "cad"]
+    )
+
+    result = match_candidate(candidate, job)
+
+    assert result.matched_skills == ["python"]
+    assert result.preferred_matched_skills == ["cad"]
+
+
+def test_missing_preferred_skill():
+
+    job = JobPosting(
+        title="Engineer",
+        company="Company",
+        extracted_skills=ExtractedSkills(
+            required=["python"],
+            preferred=["cad"]
+        )
+    )
+
+    candidate = CandidateProfile(
+        name="Alice",
+        skills=["python"]
+    )
+
+    result = match_candidate(candidate, job)
+
+    assert result.skill_score == 1.0
+    assert result.preferred_matched_skills == []
+
+
+def test_preferred_skill_does_not_replace_required():
+    job = JobPosting(
+        title="Engineer",
+        company="Company",
+        extracted_skills=ExtractedSkills(
+            required=["python", "matlab"],
+            preferred=["cad"]
+        )
+    )
+
+    candidate = CandidateProfile(
+        name="Alice",
+        skills=["python", "cad"]
+    )
+
+    result = match_candidate(candidate, job)
+
+    assert result.missing_skills == ["matlab"]
+    assert result.skill_score == 0.5

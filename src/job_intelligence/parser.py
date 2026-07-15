@@ -55,6 +55,7 @@ def split_description_sections(description: str) -> tuple[str, str]:
 
     return (required, preferred)
 
+
 def get_heading_idx(text, tags):
     text = text.lower()
     earliest_idx = None
@@ -65,6 +66,7 @@ def get_heading_idx(text, tags):
             if earliest_idx is None or idx < earliest_idx:
                 earliest_idx = idx
     return earliest_idx
+
 
 def extract_skills(description: str, skills_file: Path = DEFAULT_SKILLS_FILE) -> ExtractedSkills:
     """

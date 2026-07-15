@@ -30,6 +30,7 @@ def test_parse_job_description():
     assert "python" in job.extracted_skills.required
     assert "cad" in job.extracted_skills.required
 
+
 def test_custom_skill_file(tmp_path):
     # Create a temporary skills file
     skills_file = tmp_path / "skills.json"
@@ -99,11 +100,13 @@ def test_no_headings():
     assert "Docker" in required
     assert preferred == ""
 
+
 def test_empty_description():
     required, preferred = split_description_sections("")
 
     assert required == ""
     assert preferred == ""
+
 
 def test_get_heading_idx_finds_heading():
     text = "hello required qualifications python"
@@ -114,6 +117,7 @@ def test_get_heading_idx_finds_heading():
     )
 
     assert result == 6
+
 
 def test_get_heading_idx_no_heading():
     text = "hello python"

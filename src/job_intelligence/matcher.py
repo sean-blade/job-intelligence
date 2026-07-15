@@ -33,7 +33,6 @@ def match_candidate(
         for skill in job.extracted_skills.preferred
     }
 
-
     matched_skills = list(candidate_skills & job_skills)
     preferred_matched_skills = list(candidate_skills & preferred_job_skills)
     missing_skills = list(job_skills - candidate_skills)
