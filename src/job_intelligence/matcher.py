@@ -47,7 +47,7 @@ def match_candidate(
             
     candidate_categories = set()
 
-    for skill in candidate.skills:
+    for skill in candidate_skills:
         category = categorize_skill(skill)
 
         if category:
@@ -55,7 +55,7 @@ def match_candidate(
 
     job_categories = set()
 
-    for skill in job.extracted_skills.required:
+    for skill in required_job_skills:
         category = categorize_skill(skill)
 
         if category:
