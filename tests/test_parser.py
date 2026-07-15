@@ -1,4 +1,4 @@
-from job_intelligence.parser import extract_skills, parse_job_description
+from job_intelligence.parser import extract_skills, parse_job_description, split_description_sections, get_heading_idx
 
 
 def test_extract_skills(tmp_path):
@@ -40,3 +40,87 @@ def test_custom_skill_file(tmp_path):
 
     assert result.required == ["python", "docker"]
     assert result.preferred == []
+
+
+def test_required_before_preferred():
+        description = """
+        Required:
+        Python
+        Docker
+
+        Preferred:
+        CAD
+        """
+        required, preferred = split_description_sections(description)
+
+        assert "Python" in required
+        assert "Docker" in required
+        assert "CAD" not in required
+        assert "CAD" in preferred
+
+
+def test_preferred_before_required():
+        description = """
+        Preferred:
+        CAD
+
+        Required:
+        Python
+        Docker
+        """
+        required, preferred = split_description_sections(description)
+
+        assert "Python" in required
+        assert "Docker" in required
+        assert "CAD" not in required
+        assert "CAD" in preferred
+
+def test_only_preferred():
+        description = """
+        Preferred:
+        CAD
+        """
+        required, preferred = split_description_sections(description)
+
+        assert "CAD" in required
+        assert preferred == ""
+
+
+def test_no_headings():
+    description = """
+        CAD
+        Python
+        Docker
+        """
+    required, preferred = split_description_sections(description)
+
+    assert "CAD" in required
+    assert "Python" in required
+    assert "Docker" in required
+    assert preferred == ""
+
+def test_empty_description():
+    required, preferred = split_description_sections("")
+
+    assert required == ""
+    assert preferred == ""
+
+def test_get_heading_idx_finds_heading():
+    text = "hello required qualifications python"
+
+    result = get_heading_idx(
+        text,
+        {"required", "required qualifications"}
+    )
+
+    assert result == 6
+
+def test_get_heading_idx_no_heading():
+    text = "hello python"
+
+    result = get_heading_idx(
+        text,
+        {"required", "preferred"}
+    )
+
+    assert result is None

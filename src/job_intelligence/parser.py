@@ -53,3 +53,57 @@ def parse_job_description(
         description=description,
         extracted_skills=extracted
     )
+
+def split_description_sections(description: str) -> tuple[str, str]:
+    """
+    Split a job description into (required, preferred) sections.
+    If no common heading is found, the entire description is treated as required
+    and preferred is returned as an empty string.
+    """
+    PREFERRED_HEADING_TAGS = {
+            "preferred qualifications",
+            "preferred",
+        }
+    REQUIRED_HEADING_TAGS =  {
+            "required",
+            "required qualifications",
+            "minimum qualifications",
+        }
+
+    desc_lower = description.lower()
+
+    # Find the earliest occurrence of any known heading
+    required_idx = get_heading_idx(desc_lower, REQUIRED_HEADING_TAGS)
+    preferred_idx = get_heading_idx(desc_lower, PREFERRED_HEADING_TAGS)
+
+
+    if required_idx is None and preferred_idx is None:
+        return (description, "")
+
+    if required_idx is None:
+        return (description, "")
+
+    if preferred_idx is None:
+        return (description, "")
+
+    # Both indexes exist here
+    if required_idx < preferred_idx:
+        required = description[required_idx:preferred_idx]
+        preferred = description[preferred_idx:]
+    else:
+        preferred = description[preferred_idx:required_idx]
+        required = description[required_idx:]
+
+    return (required, preferred)
+
+def get_heading_idx(text, tags):
+    text = text.lower()
+    earliest_idx = None
+    for tag in tags:
+        tag = tag.lower()
+        idx = text.find(tag)
+        if idx != -1:
+            if earliest_idx is None or idx < earliest_idx:
+                earliest_idx = idx
+    return earliest_idx
+
