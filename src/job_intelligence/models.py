@@ -36,5 +36,6 @@ class MatchResult:
     preferred_matched_skills: list[str] = field(default_factory=list)
     required_matched_skills: list[str] = field(default_factory=list)
     matched_categories: set[str] = field(default_factory=set)
+    preferred_score: float = 0.0
     category_score: float = 0.0
     skill_score: float = 0.0

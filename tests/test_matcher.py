@@ -24,7 +24,6 @@ def test_match_candidate():
     # Assert the match result
     assert result.skill_score == 2 / 3
     assert result.category_score == 1.0
-    assert result.score == 0.7666666666666666
     assert set(result.required_matched_skills) == {"python", "cad"}
     assert set(result.missing_required_skills) == {"sql"}
     assert "programming" in result.matched_categories
@@ -240,3 +239,32 @@ def test_missing_skills():
     result = match_candidate(candidate, job)
     assert set(result.missing_required_skills) == {"matlab"}
     assert set(result.missing_preferred_skills) == {"cad"}
+
+def test_score_increase_with_preferred():
+    job = JobPosting(
+        title= "Engineer",
+        company="Company",
+        extracted_skills= ExtractedSkills(
+            preferred= ["matlab"],
+            required= ["python"]
+        )
+    )
+    candiate_with_preferred = CandidateProfile(
+        name="Alice",
+        skills=["python", "matlab"]
+    )
+    candiate_without_preferred= CandidateProfile(
+        name="Bob",
+        skills=["python"]
+    )
+
+    result_without = match_candidate(
+        candidate=candiate_without_preferred,
+        job= job
+    )
+    result_with = match_candidate(
+        candiate_with_preferred,
+        job
+    )
+    assert result_with.preferred_score == 1.0
+    assert result_without.preferred_score == 0

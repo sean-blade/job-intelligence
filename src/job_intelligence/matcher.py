@@ -66,10 +66,19 @@ def match_candidate(
         list(job_categories)
     )
     
+    preferred_score = (
+        len(preferred_matched_skills) / len(preferred_job_skills)
+        if preferred_job_skills
+        else 0
+    )
+
+
     # Calculate a simple match score based on the number of matched skills
     skill_score = len(required_matched_skills) / len(job.extracted_skills.required) if job.extracted_skills.required else 1
 
-    score = 0.7 * skill_score + 0.3 * category_score
+    score = 0.8 * skill_score + 0.2 * category_score 
+    score += 0.1* preferred_score
+    score = min(score, 1.0)
 
     return MatchResult(
         score=score,
@@ -78,6 +87,7 @@ def match_candidate(
         preferred_matched_skills=preferred_matched_skills, 
         required_matched_skills=required_matched_skills, 
         matched_categories=matched_categories, 
+        preferred_score=preferred_score,
         category_score=category_score, 
         skill_score=skill_score
         )
