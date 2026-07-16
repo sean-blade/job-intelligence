@@ -161,3 +161,11 @@ def test_extract_alias_skill():
      result = extract_skills(description=description)
      assert "finite element analysis" in result.required
      assert "cad" in result.required
+
+def test_alias_no_dupes():
+     description="""Required:
+     Experience with FEA and Finite Element Analysis
+     """
+
+     result = extract_skills(description=description)
+     assert result.required.count("finite element analysis") == 1
