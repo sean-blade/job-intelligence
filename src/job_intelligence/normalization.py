@@ -27,12 +27,12 @@ def normalize_skill(
     return skill
 
 
-def skill_in_text(skill: str, text: str) -> bool:
-    aliases = load_aliases()
+def skill_in_text(skill: str, text: str, aliases_file: Path = DEFAULT_ALIASES_FILE) -> bool:
+    aliases = load_aliases(aliases_file=aliases_file)
+    skill = skill.lower()
+    text = text.lower()
+    terms = [skill]
+    if skill in aliases:
+        terms.extend(aliases[skill])
 
-    if skill in text:
-        return True
-    for alias in aliases.get(skill, []):
-        if alias in text:
-            return True
-    return False
+    return any(term.lower() in text for term in terms)

@@ -1,4 +1,4 @@
-from job_intelligence.normalization import normalize_skill
+from job_intelligence.normalization import normalize_skill, skill_in_text
 from job_intelligence.models import CandidateProfile, JobPosting
 from job_intelligence.matcher import match_candidate
 
@@ -50,3 +50,12 @@ def test_existing_skill_aliases():
 def test_normalization_case_and_whitespace():
     assert normalize_skill("  FEA  ") == "finite element analysis"
     assert normalize_skill("CAD") == "cad"
+
+def test_skill_match_exact():
+    assert skill_in_text("python", "Experience with python")
+
+def test_skill_match_case_insensitive():
+    assert skill_in_text("python", "Experience with PYTHON")
+
+def test_skill_nomatch_substring():
+    assert not skill_in_text("cad", "Dedicated engineer")

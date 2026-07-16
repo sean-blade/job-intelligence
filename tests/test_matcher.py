@@ -268,3 +268,4 @@ def test_score_increase_with_preferred():
     )
     assert result_with.preferred_score == 1.0
     assert result_without.preferred_score == 0
+
