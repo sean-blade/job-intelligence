@@ -1,6 +1,7 @@
 import json
 from .models import JobPosting, ExtractedSkills
 from pathlib import Path
+from .normalization import skill_in_text
 
 
 DEFAULT_SKILLS_FILE = Path("config/skills.json")
@@ -81,9 +82,10 @@ def extract_skills(description: str, skills_file: Path = DEFAULT_SKILLS_FILE) ->
     preferred_skills = []
 
     for skill in skills:
-        if skill in required:
+        if skill_in_text(skill, required):
             required_skills.append(skill)
-        if skill in preferred:
+        
+        if skill_in_text(skill, preferred):
             preferred_skills.append(skill)
 
     return ExtractedSkills(

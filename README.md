@@ -69,27 +69,38 @@ pytest
 
 ```text
 job-intelligence/
-├── .pytest_cache/
-│   ├── v/
-│   │   └── cache/
-│   │       ├── lastfailed
-│   │       └── nodeids
-│   ├── .gitignore
-│   ├── CACHEDIR.TAG
-│   └── README.md
+├── .github/
+│   └── workflows/
+│       └── tests.yml
 ├── config/
 │   ├── aliases.json
+│   ├── categories.json
 │   └── skills.json
 ├── data/
 │   ├── sample_candidate.json
 │   └── sample_jobs.csv
 ├── src/
+│   ├── job-intelligence/
+│   │   ├── src/
+│   │   │   ├── job_intelligence/
+│   │   │   │   └── main.py
+│   │   │   └── job_intelligence.egg-info/
+│   │   │       ├── dependency_links.txt
+│   │   │       ├── PKG-INFO
+│   │   │       ├── requires.txt
+│   │   │       ├── SOURCES.txt
+│   │   │       └── top_level.txt
+│   │   ├── .gitignore
+│   │   ├── pyproject.toml
+│   │   ├── README.md
+│   │   └── requirements.txt
 │   ├── job_intelligence/
 │   │   ├── __init__.py
 │   │   ├── __main__.py
 │   │   ├── analysis.py
 │   │   ├── candidate.py
 │   │   ├── candidate_loader.py
+│   │   ├── category.py
 │   │   ├── cli.py
 │   │   ├── loader.py
 │   │   ├── main.py
@@ -98,7 +109,8 @@ job-intelligence/
 │   │   ├── normalization.py
 │   │   ├── parser.py
 │   │   ├── rank_jobs.py
-│   │   └── report.py
+│   │   ├── report.py
+│   │   └── scoring.py
 │   └── job_intelligence.egg-info/
 │       ├── dependency_links.txt
 │       ├── PKG-INFO
@@ -108,6 +120,7 @@ job-intelligence/
 ├── tests/
 │   ├── test_analysis.py
 │   ├── test_candidate_loader.py
+│   ├── test_category.py
 │   ├── test_cli.py
 │   ├── test_loader.py
 │   ├── test_main.py
@@ -116,10 +129,12 @@ job-intelligence/
 │   ├── test_normalize.py
 │   ├── test_parser.py
 │   ├── test_rank_jobs.py
-│   └── test_report.py
+│   ├── test_report.py
+│   └── test_scoring.py
 ├── tools/
 │   └── update_structure_readme.py
 ├── .gitignore
+├── CONTRIBUTING.md
 ├── pyproject.toml
 ├── README.md
 └── requirements.txt

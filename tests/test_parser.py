@@ -151,3 +151,13 @@ def test_extract_required_and_preferred_skills():
     assert result.preferred == [
         "cad"
     ]
+
+
+def test_extract_alias_skill():
+     description="""Required:
+     Experience with FEA and CAD
+     """
+
+     result = extract_skills(description=description)
+     assert "finite element analysis" in result.required
+     assert "cad" in result.required
