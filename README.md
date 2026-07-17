@@ -72,6 +72,8 @@ job-intelligence/
 ├── .github/
 │   └── workflows/
 │       └── tests.yml
+├── .vscode/
+│   └── settings.json
 ├── config/
 │   ├── aliases.json
 │   ├── categories.json
@@ -80,20 +82,6 @@ job-intelligence/
 │   ├── sample_candidate.json
 │   └── sample_jobs.csv
 ├── src/
-│   ├── job-intelligence/
-│   │   ├── src/
-│   │   │   ├── job_intelligence/
-│   │   │   │   └── main.py
-│   │   │   └── job_intelligence.egg-info/
-│   │   │       ├── dependency_links.txt
-│   │   │       ├── PKG-INFO
-│   │   │       ├── requires.txt
-│   │   │       ├── SOURCES.txt
-│   │   │       └── top_level.txt
-│   │   ├── .gitignore
-│   │   ├── pyproject.toml
-│   │   ├── README.md
-│   │   └── requirements.txt
 │   ├── job_intelligence/
 │   │   ├── __init__.py
 │   │   ├── __main__.py
