@@ -3,8 +3,8 @@ from .models import JobPosting, ExtractedSkills
 from pathlib import Path
 from .normalization import skill_in_text
 
-
 DEFAULT_SKILLS_FILE = Path("config/skills.json")
+
 
 def load_skills(filepath: Path = DEFAULT_SKILLS_FILE) -> list[str]:
     """
@@ -21,21 +21,20 @@ def split_description_sections(description: str) -> tuple[str, str]:
     and preferred is returned as an empty string.
     """
     PREFERRED_HEADING_TAGS = {
-            "preferred qualifications",
-            "preferred",
-        }
-    REQUIRED_HEADING_TAGS =  {
-            "required",
-            "required qualifications",
-            "minimum qualifications",
-        }
+        "preferred qualifications",
+        "preferred",
+    }
+    REQUIRED_HEADING_TAGS = {
+        "required",
+        "required qualifications",
+        "minimum qualifications",
+    }
 
     desc_lower = description.lower()
 
     # Find the earliest occurrence of any known heading
     required_idx = get_heading_idx(desc_lower, REQUIRED_HEADING_TAGS)
     preferred_idx = get_heading_idx(desc_lower, PREFERRED_HEADING_TAGS)
-
 
     if required_idx is None and preferred_idx is None:
         return (description, "")
@@ -69,7 +68,9 @@ def get_heading_idx(text, tags):
     return earliest_idx
 
 
-def extract_skills(description: str, skills_file: Path = DEFAULT_SKILLS_FILE) -> ExtractedSkills:
+def extract_skills(
+    description: str, skills_file: Path = DEFAULT_SKILLS_FILE
+) -> ExtractedSkills:
     """
     Extract known skills from a job description.
     """
@@ -84,14 +85,11 @@ def extract_skills(description: str, skills_file: Path = DEFAULT_SKILLS_FILE) ->
     for skill in skills:
         if skill_in_text(skill, required):
             required_skills.append(skill)
-        
+
         if skill_in_text(skill, preferred):
             preferred_skills.append(skill)
 
-    return ExtractedSkills(
-        required=required_skills,
-        preferred=preferred_skills 
-    )
+    return ExtractedSkills(required=required_skills, preferred=preferred_skills)
 
 
 def parse_job_description(
@@ -99,7 +97,7 @@ def parse_job_description(
     company: str,
     location: str,
     description: str,
-    skills_file: Path = DEFAULT_SKILLS_FILE
+    skills_file: Path = DEFAULT_SKILLS_FILE,
 ) -> JobPosting:
     """
     Convert raw job information into a JobPosting object.
@@ -112,7 +110,5 @@ def parse_job_description(
         company=company,
         location=location,
         description=description,
-        extracted_skills=extracted
+        extracted_skills=extracted,
     )
-
-

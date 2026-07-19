@@ -1,9 +1,11 @@
 from dataclasses import dataclass, field
 
+
 @dataclass
 class ExtractedSkills:
     required: list[str] = field(default_factory=list)
     preferred: list[str] = field(default_factory=list)
+
 
 @dataclass
 class JobPosting:
@@ -21,13 +23,15 @@ class JobPosting:
         if self.skills:
             self.extracted_skills.required = self.skills
 
+
 @dataclass
 class CandidateProfile:
     name: str | None = None
     skills: list[str] = field(default_factory=list)
     # experience: str | None = None
     education: list[str] = field(default_factory=list)
-    
+
+
 @dataclass
 class MatchResult:
     score: float

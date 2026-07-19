@@ -1,6 +1,7 @@
 from job_intelligence.category import load_categories, categorize_skill
 from job_intelligence.normalization import normalize_skill
 
+
 def test_load_categories():
     categories = load_categories()
     assert "programming" in categories

@@ -16,3 +16,10 @@ dev = [
     "black",
     "mypy"
 ]
+
+[tool.black]
+target-version = ["py313"]
+line-length = 88
+
+[tool.mypy]
+python_version = "3.13"

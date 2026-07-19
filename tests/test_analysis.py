@@ -1,4 +1,8 @@
-from job_intelligence.analysis import skill_frequency, skill_prevalence, categorize_prevalance
+from job_intelligence.analysis import (
+    skill_frequency,
+    skill_prevalence,
+    categorize_prevalance,
+)
 from job_intelligence.models import JobPosting, ExtractedSkills
 
 
@@ -27,6 +31,7 @@ def test_skill_frequency():
     assert result["matlab"] == 1
     assert result["sql"] == 1
 
+
 def test_skill_prevalence():
     jobs = [
         JobPosting(
@@ -50,6 +55,7 @@ def test_skill_prevalence():
     assert result["python"] == 1.0
     assert result["matlab"] == 0.5
     assert result["sql"] == 0.5
+
 
 def test_categorize_prevalance():
     jobs = [

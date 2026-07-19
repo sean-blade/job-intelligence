@@ -6,36 +6,26 @@ from .analysis import skill_prevalence, categorize_prevalance
 from .loader import load_jobs_from_csv
 from .report import format_skill_report, format_match_report
 from .candidate_loader import load_candidate
-from .matcher import match_candidate
+
 
 def analyze_file(filepath: str):
     jobs = load_jobs_from_csv(filepath)
 
     return skill_prevalence(jobs)
 
+
 def main():
-    parser = argparse.ArgumentParser(
-        description="Analyze job postings"
-    )
+    parser = argparse.ArgumentParser(description="Analyze job postings")
 
     subparsers = parser.add_subparsers(dest="command")
     match_parser = subparsers.add_parser("match")
     analyze_parser = subparsers.add_parser("analyze")
 
-    analyze_parser.add_argument(
-        "filepath",
-        help="Path to job CSV file"
-    )
+    analyze_parser.add_argument("filepath", help="Path to job CSV file")
 
-    match_parser.add_argument(
-        "candidate_file",
-        help="Path to candidate JSON file"
-    )
+    match_parser.add_argument("candidate_file", help="Path to candidate JSON file")
 
-    match_parser.add_argument(
-        "job_file",
-        help="Path to job CSV file"
-    )
+    match_parser.add_argument("job_file", help="Path to job CSV file")
 
     args = parser.parse_args()
 

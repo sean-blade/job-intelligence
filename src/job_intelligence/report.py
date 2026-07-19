@@ -8,13 +8,12 @@ def format_skill_report(skill_data: dict[str, float]) -> str:
     lines.append("-" * 20)
 
     for skill, prevalence in sorted(
-        skill_data.items(),
-        key=lambda item: item[1],
-        reverse=True
+        skill_data.items(), key=lambda item: item[1], reverse=True
     ):
         lines.append(f"{skill}: {prevalence:.0%}")
 
     return "\n".join(lines)
+
 
 def format_match_report(matches):
     lines = []
@@ -30,8 +29,8 @@ def format_match_report(matches):
             ", ".join(result.missing_required_skills)
             if result.missing_required_skills
             else "None"
-        )        
-        
+        )
+
         missing_preferred = (
             ", ".join(result.missing_preferred_skills)
             if result.missing_preferred_skills
@@ -50,7 +49,7 @@ def format_match_report(matches):
             else "None"
         )
 
-        preferred= (
+        preferred = (
             ", ".join(result.preferred_matched_skills)
             if result.preferred_matched_skills
             else "None"
@@ -66,7 +65,6 @@ def format_match_report(matches):
         lines.append("")
         lines.append(f"Missing Preferred Skills: {missing_preferred}")
         lines.append("")
-        
 
         lines.append("-" * 40)
 

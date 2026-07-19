@@ -1,8 +1,5 @@
-
-
 def calculate_category_score(
-    candidate_categories: list[str],
-    job_categories: list[str]
+    candidate_categories: list[str], job_categories: list[str]
 ) -> float:
     """
     Calculate overlap between candidate and job categories.

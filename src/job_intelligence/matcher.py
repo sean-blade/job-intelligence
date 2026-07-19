@@ -4,33 +4,25 @@ from job_intelligence.category import categorize_skill
 from job_intelligence.scoring import calculate_category_score
 
 
-def match_candidate(
-        candidate: CandidateProfile,
-        job: JobPosting
-) -> MatchResult:
+def match_candidate(candidate: CandidateProfile, job: JobPosting) -> MatchResult:
     """
     Match a candidate profile against a job posting and return a match result.
-    
+
     Args:
         candidate (CandidateProfile): The candidate's profile.
         job (JobPosting): The job posting to match against.
-        
+
     Returns:
         MatchResult: The result of the matching process, including score and skill matches.
     """
-    candidate_skills = {
-        normalize_skill(skill)
-        for skill in candidate.skills
-    }
+    candidate_skills = {normalize_skill(skill) for skill in candidate.skills}
 
     required_job_skills = {
-        normalize_skill(skill)
-        for skill in job.extracted_skills.required
+        normalize_skill(skill) for skill in job.extracted_skills.required
     }
 
     preferred_job_skills = {
-        normalize_skill(skill)
-        for skill in job.extracted_skills.preferred
+        normalize_skill(skill) for skill in job.extracted_skills.preferred
     }
 
     required_matched_skills = list(candidate_skills & required_job_skills)
@@ -44,7 +36,7 @@ def match_candidate(
 
         if category:
             matched_categories.add(category)
-            
+
     candidate_categories = set()
 
     for skill in candidate_skills:
@@ -62,32 +54,34 @@ def match_candidate(
             job_categories.add(category)
 
     category_score = calculate_category_score(
-        list(candidate_categories),
-        list(job_categories)
+        list(candidate_categories), list(job_categories)
     )
-    
+
     preferred_score = (
         len(preferred_matched_skills) / len(preferred_job_skills)
         if preferred_job_skills
         else 0
     )
 
-
     # Calculate a simple match score based on the number of matched skills
-    skill_score = len(required_matched_skills) / len(job.extracted_skills.required) if job.extracted_skills.required else 1
+    skill_score = (
+        len(required_matched_skills) / len(job.extracted_skills.required)
+        if job.extracted_skills.required
+        else 1
+    )
 
-    score = 0.8 * skill_score + 0.2 * category_score 
-    score += 0.1* preferred_score
+    score = 0.8 * skill_score + 0.2 * category_score
+    score += 0.1 * preferred_score
     score = min(score, 1.0)
 
     return MatchResult(
         score=score,
         missing_required_skills=missing_required_skills,
         missing_preferred_skills=missing_preferred_skills,
-        preferred_matched_skills=preferred_matched_skills, 
-        required_matched_skills=required_matched_skills, 
-        matched_categories=matched_categories, 
+        preferred_matched_skills=preferred_matched_skills,
+        required_matched_skills=required_matched_skills,
+        matched_categories=matched_categories,
         preferred_score=preferred_score,
-        category_score=category_score, 
-        skill_score=skill_score
-        )
+        category_score=category_score,
+        skill_score=skill_score,
+    )

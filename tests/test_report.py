@@ -2,6 +2,7 @@ from job_intelligence.report import format_skill_report, format_match_report
 from job_intelligence.models import JobPosting, MatchResult
 from job_intelligence.parser import ExtractedSkills
 
+
 def test_format_skill_report():
     skills = {
         "python": 0.75,
@@ -13,15 +14,14 @@ def test_format_skill_report():
     assert "python: 75%" in report
     assert "matlab: 25%" in report
 
+
 def test_format_match_report():
     job = JobPosting(
         title="Biomedical Engineer",
         company="MedTech Corp",
         location="Remote",
         description="Uses Python and MATLAB",
-        extracted_skills=ExtractedSkills(
-            required=["python", "matlab"]
-        )
+        extracted_skills=ExtractedSkills(required=["python", "matlab"]),
     )
 
     result = MatchResult(
@@ -32,12 +32,10 @@ def test_format_match_report():
         preferred_matched_skills=["cad"],
         missing_required_skills=["matlab"],
         missing_preferred_skills=["docker"],
-        matched_categories={"programming"}
+        matched_categories={"programming"},
     )
 
-    matches = [
-        (job, result)
-    ]
+    matches = [(job, result)]
     report = format_match_report(matches)
 
     assert "Biomedical Engineer" in report

@@ -10,6 +10,7 @@ def test_analyze_file():
     assert result["python"] == 2 / 3
     assert result["cad"] == 1 / 3
 
+
 def test_match_command():
     # Run the CLI command for matching
     result = subprocess.run(
@@ -19,10 +20,10 @@ def test_match_command():
             "job_intelligence",
             "match",
             "data/sample_candidate.json",
-            "data/sample_jobs.csv"
+            "data/sample_jobs.csv",
         ],
         capture_output=True,
-        text=True
+        text=True,
     )
     print("STDOUT:")
     print(result.stdout)
@@ -46,18 +47,13 @@ def test_match_command():
     assert output.index("Data Analyst") < output.index("Mechanical Engineer")
     assert output.index("Mechanical Engineer") < output.index("Biomedical Engineer")
 
+
 def test_analyze_command_categories():
 
     result = subprocess.run(
-        [
-            sys.executable,
-            "-m",
-            "job_intelligence",
-            "analyze",
-            "data/sample_jobs.csv"
-        ],
+        [sys.executable, "-m", "job_intelligence", "analyze", "data/sample_jobs.csv"],
         capture_output=True,
-        text=True
+        text=True,
     )
 
     assert result.returncode == 0

@@ -1,10 +1,17 @@
-from job_intelligence.parser import extract_skills, parse_job_description, split_description_sections, get_heading_idx
+from job_intelligence.parser import (
+    extract_skills,
+    parse_job_description,
+    split_description_sections,
+    get_heading_idx,
+)
 
 
 def test_extract_skills(tmp_path):
     # Create a temporary skills file
     skills_file = tmp_path / "skills.json"
-    skills_file.write_text('["python", "matlab", "finite element analysis"]', encoding="utf-8")
+    skills_file.write_text(
+        '["python", "matlab", "finite element analysis"]', encoding="utf-8"
+    )
 
     description = """
     Looking for an engineer with Python,
@@ -23,7 +30,7 @@ def test_parse_job_description():
         title="Biomedical Engineer",
         company="Example Corp",
         location="Remote",
-        description="Experience with Python and CAD."
+        description="Experience with Python and CAD.",
     )
 
     assert job.title == "Biomedical Engineer"
@@ -44,7 +51,7 @@ def test_custom_skill_file(tmp_path):
 
 
 def test_required_before_preferred():
-        description = """
+    description = """
         Required:
         Python
         Docker
@@ -52,16 +59,16 @@ def test_required_before_preferred():
         Preferred:
         CAD
         """
-        required, preferred = split_description_sections(description)
+    required, preferred = split_description_sections(description)
 
-        assert "Python" in required
-        assert "Docker" in required
-        assert "CAD" not in required
-        assert "CAD" in preferred
+    assert "Python" in required
+    assert "Docker" in required
+    assert "CAD" not in required
+    assert "CAD" in preferred
 
 
 def test_preferred_before_required():
-        description = """
+    description = """
         Preferred:
         CAD
 
@@ -69,22 +76,23 @@ def test_preferred_before_required():
         Python
         Docker
         """
-        required, preferred = split_description_sections(description)
+    required, preferred = split_description_sections(description)
 
-        assert "Python" in required
-        assert "Docker" in required
-        assert "CAD" not in required
-        assert "CAD" in preferred
+    assert "Python" in required
+    assert "Docker" in required
+    assert "CAD" not in required
+    assert "CAD" in preferred
+
 
 def test_only_preferred():
-        description = """
+    description = """
         Preferred:
         CAD
         """
-        required, preferred = split_description_sections(description)
+    required, preferred = split_description_sections(description)
 
-        assert "CAD" in required
-        assert preferred == ""
+    assert "CAD" in required
+    assert preferred == ""
 
 
 def test_no_headings():
@@ -111,10 +119,7 @@ def test_empty_description():
 def test_get_heading_idx_finds_heading():
     text = "hello required qualifications python"
 
-    result = get_heading_idx(
-        text,
-        {"required", "required qualifications"}
-    )
+    result = get_heading_idx(text, {"required", "required qualifications"})
 
     assert result == 6
 
@@ -122,10 +127,7 @@ def test_get_heading_idx_finds_heading():
 def test_get_heading_idx_no_heading():
     text = "hello python"
 
-    result = get_heading_idx(
-        text,
-        {"required", "preferred"}
-    )
+    result = get_heading_idx(text, {"required", "preferred"})
 
     assert result is None
 
@@ -143,29 +145,25 @@ def test_extract_required_and_preferred_skills():
 
     result = extract_skills(description)
 
-    assert result.required == [
-        "python",
-        "matlab"
-    ]
+    assert result.required == ["python", "matlab"]
 
-    assert result.preferred == [
-        "cad"
-    ]
+    assert result.preferred == ["cad"]
 
 
 def test_extract_alias_skill():
-     description="""Required:
+    description = """Required:
      Experience with FEA and CAD
      """
 
-     result = extract_skills(description=description)
-     assert "finite element analysis" in result.required
-     assert "cad" in result.required
+    result = extract_skills(description=description)
+    assert "finite element analysis" in result.required
+    assert "cad" in result.required
+
 
 def test_alias_no_dupes():
-     description="""Required:
+    description = """Required:
      Experience with FEA and Finite Element Analysis
      """
 
-     result = extract_skills(description=description)
-     assert result.required.count("finite element analysis") == 1
+    result = extract_skills(description=description)
+    assert result.required.count("finite element analysis") == 1

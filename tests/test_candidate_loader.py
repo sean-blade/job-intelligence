@@ -1,5 +1,6 @@
 from job_intelligence.candidate_loader import load_candidate
 
+
 def test_candidate_loader(tmp_path):
 
     candidate_file = tmp_path / "candidate.json"
@@ -11,7 +12,7 @@ def test_candidate_loader(tmp_path):
             "education": ["B.Sc. in Biomedical Engineering"]
         }
         """,
-        encoding="utf-8"
+        encoding="utf-8",
     )
 
     candidate = load_candidate(candidate_file)
