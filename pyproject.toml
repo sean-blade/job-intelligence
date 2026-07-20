@@ -14,7 +14,8 @@ dev = [
     "pytest",
     "ruff",
     "black",
-    "mypy"
+    "mypy",
+    "pre-commit"
 ]
 
 [tool.black]
