@@ -2,6 +2,7 @@
 Create an engine that analyzes job postings against a candidate profile.
 
 **Completed:**
+
 - [x] Project structure
 - [x] Data models
 - [x] Job loading
@@ -11,7 +12,7 @@ Create an engine that analyzes job postings against a candidate profile.
 - [x] Skill Alias handling
 - [x] Differentiate required and preferred skills
 - [x] Skill matcher engine
-- [x] skill category matcher engine
+- [x] Skill category matcher engine
 - [x] Scoring Engine
 - [x] CLI commands
 - [x] Text report
@@ -41,7 +42,6 @@ Store user profile for modularity and so that it only needs to be created once i
 Features:
 - [x] Candidate profile file
 - [x] Configurable profile location
-- [ ] Save/load profile
 - [ ] Support:
     - [x] Skills
     - [ ] Education
@@ -193,6 +193,7 @@ Features:
 - filters
 - skill trends
 - application tracker
+- Save/load profile
 
 ### 4.2 Quality
 Add:

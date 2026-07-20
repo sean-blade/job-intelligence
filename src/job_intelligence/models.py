@@ -16,6 +16,7 @@ class JobPosting:
     extracted_skills: ExtractedSkills = field(default_factory=ExtractedSkills)
     skills: list[str] = field(default_factory=list)
     salary: str | None = None
+    education: str | None = None
 
     def __post_init__(self):
         # If a flat `skills` list is provided (tests/legacy callers),
