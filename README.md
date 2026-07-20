@@ -72,8 +72,6 @@ job-intelligence/
 ├── .github/
 │   └── workflows/
 │       └── tests.yml
-├── .vscode/
-│   └── settings.json
 ├── config/
 │   ├── aliases.json
 │   ├── categories.json
@@ -82,29 +80,23 @@ job-intelligence/
 │   ├── sample_candidate.json
 │   └── sample_jobs.csv
 ├── src/
-│   ├── job_intelligence/
-│   │   ├── __init__.py
-│   │   ├── __main__.py
-│   │   ├── analysis.py
-│   │   ├── candidate.py
-│   │   ├── candidate_loader.py
-│   │   ├── category.py
-│   │   ├── cli.py
-│   │   ├── loader.py
-│   │   ├── main.py
-│   │   ├── matcher.py
-│   │   ├── models.py
-│   │   ├── normalization.py
-│   │   ├── parser.py
-│   │   ├── rank_jobs.py
-│   │   ├── report.py
-│   │   └── scoring.py
-│   └── job_intelligence.egg-info/
-│       ├── dependency_links.txt
-│       ├── PKG-INFO
-│       ├── requires.txt
-│       ├── SOURCES.txt
-│       └── top_level.txt
+│   └── job_intelligence/
+│       ├── __init__.py
+│       ├── __main__.py
+│       ├── analysis.py
+│       ├── candidate.py
+│       ├── candidate_loader.py
+│       ├── category.py
+│       ├── cli.py
+│       ├── loader.py
+│       ├── main.py
+│       ├── matcher.py
+│       ├── models.py
+│       ├── normalization.py
+│       ├── parser.py
+│       ├── rank_jobs.py
+│       ├── report.py
+│       └── scoring.py
 ├── tests/
 │   ├── test_analysis.py
 │   ├── test_candidate_loader.py

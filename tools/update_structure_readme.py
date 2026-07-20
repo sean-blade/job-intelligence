@@ -9,9 +9,8 @@ def generate_tree(path: Path, prefix="") -> list[str]:
 
     items = sorted(
         [
-            item
-            for item in path.iterdir()
-            if item.name not in {".venv", ".git", "__pycache__", ".pytest_cache"}
+            item for item in path.iterdir()
+            if item.name not in {".venv", ".git", "__pycache__", ".pytest_cache", "job_intelligence.egg-info", ".vscode"}
         ],
         key=lambda x: (x.is_file(), x.name.lower()),
     )
