@@ -19,6 +19,8 @@ def generate_tree(path: Path, prefix="") -> list[str]:
                 ".pytest_cache",
                 "job_intelligence.egg-info",
                 ".vscode",
+                ".mypy_cache",
+                ".ruff_cache",
             }
         ],
         key=lambda x: (x.is_file(), x.name.lower()),
