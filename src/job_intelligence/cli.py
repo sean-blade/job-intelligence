@@ -23,7 +23,7 @@ def main():
 
     analyze_parser.add_argument("filepath", help="Path to job CSV file")
 
-    match_parser.add_argument("candidate_file", help="Path to candidate JSON file")
+    match_parser.add_argument("--candidate", default=None, help="Path to candidate JSON file")
 
     match_parser.add_argument("job_file", help="Path to job CSV file")
 
@@ -42,7 +42,7 @@ def main():
             print(f"Category: {category}: {prevalence:.2%}")
 
     elif args.command == "match":
-        candidate = load_candidate(args.candidate_file)
+        candidate = load_candidate(args.candidate)
         jobs = load_jobs_from_csv(args.job_file)
         matches = rank_jobs(candidate, jobs)
         print(format_match_report(matches))

@@ -19,7 +19,7 @@ def test_match_command():
             "-m",
             "job_intelligence",
             "match",
-            "data/sample_candidate.json",
+            # "data/sample_candidate.json",
             "data/sample_jobs.csv",
         ],
         capture_output=True,
@@ -58,3 +58,21 @@ def test_analyze_command_categories():
 
     assert result.returncode == 0
     assert "Top Categories" in result.stdout
+
+def test_match_with_custom_candidate():
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "job_intelligence",
+            "match",
+            "data/sample_jobs.csv",
+            "--candidate",
+            "data/sample_candidate.json",
+        ],
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0
+    assert "Overall Match" in result.stdout

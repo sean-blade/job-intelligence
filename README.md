@@ -10,7 +10,7 @@ A project for exploring automated job analysis and intelligence tools.
 
 ## Current Status
 
-**Version:** v0.1.0
+**Version:** v0.2.0
 
 ### Completed
 - CSV job ingestion
