@@ -23,7 +23,9 @@ def main():
 
     analyze_parser.add_argument("filepath", help="Path to job CSV file")
 
-    match_parser.add_argument("--candidate", default=None, help="Path to candidate JSON file")
+    match_parser.add_argument(
+        "--candidate", default=None, help="Path to candidate JSON file"
+    )
 
     match_parser.add_argument("job_file", help="Path to job CSV file")
 

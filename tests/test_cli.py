@@ -59,6 +59,7 @@ def test_analyze_command_categories():
     assert result.returncode == 0
     assert "Top Categories" in result.stdout
 
+
 def test_match_with_custom_candidate():
     result = subprocess.run(
         [
