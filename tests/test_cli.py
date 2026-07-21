@@ -68,7 +68,7 @@ def test_match_with_custom_candidate():
             "match",
             "data/sample_jobs.csv",
             "--candidate",
-            "data/sample_candidate.json",
+            "tests/data/sample_candidate.json",
         ],
         capture_output=True,
         text=True,
