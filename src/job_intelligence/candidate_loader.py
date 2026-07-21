@@ -2,7 +2,6 @@ import json
 from pathlib import Path
 from job_intelligence.models import CandidateProfile
 
-
 DEFAULT_CANDIDATE_FILE = Path("config/candidate.json")
 
 
