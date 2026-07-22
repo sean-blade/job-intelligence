@@ -61,7 +61,7 @@ source .venv/bin/activate
 ### 3. Install dependencies:
 
 ```bash
-uv pip install -e ".[dev]"
+pip install -e ".[dev]"
 ```
 
 ### 4. Install Pre-commit hooks

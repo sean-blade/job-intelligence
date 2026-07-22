@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 DEFAULT_ALIASES_FILE = Path("config/aliases.json")
+DEFAULT_EDUCATION_FILE = Path("config/education.json")
 
 
 def load_aliases(aliases_file: Path = DEFAULT_ALIASES_FILE) -> dict[str, list[str]]:
@@ -34,5 +35,16 @@ def skill_in_text(
     terms = [skill]
     if skill in aliases:
         terms.extend(aliases[skill])
+
+    return any(term.lower() in text for term in terms)
+
+
+def edu_in_text(edu: str, text: str, edu_config: Path = DEFAULT_EDUCATION_FILE) -> bool:
+    aliases = load_aliases(aliases_file=edu_config)
+    edu = edu.lower()
+    text = text.lower()
+    terms = [edu]
+    if edu in aliases:
+        terms.extend(aliases[edu])
 
     return any(term.lower() in text for term in terms)

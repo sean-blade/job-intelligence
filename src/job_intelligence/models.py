@@ -44,3 +44,4 @@ class MatchResult:
     preferred_score: float = 0.0
     category_score: float = 0.0
     skill_score: float = 0.0
+    education_match: bool = False

@@ -1,14 +1,23 @@
 import json
 from .models import JobPosting, ExtractedSkills
 from pathlib import Path
-from .normalization import skill_in_text
+from .normalization import skill_in_text, edu_in_text
 
 DEFAULT_SKILLS_FILE = Path("config/skills.json")
+DEFAULT_EDUCATION_FILE = Path("config/education.json")
 
 
 def load_skills(filepath: Path = DEFAULT_SKILLS_FILE) -> list[str]:
     """
     Load known skills from a JSON file.
+    """
+    with open(filepath, "r", encoding="utf-8") as file:
+        return json.load(file)
+
+
+def load_edu(filepath: Path = DEFAULT_EDUCATION_FILE) -> list[str]:
+    """
+    Load known education from a JSON file.
     """
     with open(filepath, "r", encoding="utf-8") as file:
         return json.load(file)
@@ -92,6 +101,18 @@ def extract_skills(
     return ExtractedSkills(required=required_skills, preferred=preferred_skills)
 
 
+def extract_education(
+    description: str, edu_config: Path = DEFAULT_EDUCATION_FILE
+) -> list[str]:
+    education = load_edu(edu_config)
+    description = description.lower()
+    required_education = []
+    for edu in education:
+        if edu_in_text(edu, description):
+            required_education.append(edu)
+    return required_education
+
+
 def parse_job_description(
     title: str,
     company: str,
@@ -103,12 +124,13 @@ def parse_job_description(
     Convert raw job information into a JobPosting object.
     """
 
-    extracted = extract_skills(description, skills_file)
-
+    extracted_skills = extract_skills(description, skills_file)
+    # extracted_education = extract_education(description, edu_file)
     return JobPosting(
         title=title,
         company=company,
         location=location,
         description=description,
-        extracted_skills=extracted,
+        extracted_skills=extracted_skills,
+        # education=extracted_education
     )
