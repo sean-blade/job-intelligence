@@ -40,7 +40,11 @@ Python version: 3.13
 
 ## Development Setup
 
-After cloning:
+```bash
+git clone https://github.com/sean-blade/job-intelligence.git
+cd job-intelligence
+uv sync --all-extras
+```
 
 ### 1. Create virtual environment:
 
