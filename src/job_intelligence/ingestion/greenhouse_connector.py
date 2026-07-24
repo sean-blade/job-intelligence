@@ -3,6 +3,8 @@ import requests
 from job_intelligence.ingestion.base import JobConnector
 from job_intelligence.models import JobPosting
 
+# TODO: Clean Greenhouse HTML descriptions.
+
 
 class GreenhouseConnector(JobConnector):
     def __init__(self, board: str):
