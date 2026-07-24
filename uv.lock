@@ -160,7 +160,7 @@ requires-dist = [
     { name = "mypy", marker = "extra == 'dev'" },
     { name = "pre-commit", marker = "extra == 'dev'" },
     { name = "pytest", marker = "extra == 'dev'" },
-    { name = "ruff", marker = "extra == 'dev'" },
+    { name = "ruff", marker = "extra == 'dev'", specifier = "==0.15.22" },
 ]
 provides-extras = ["dev"]
 
