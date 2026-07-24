@@ -7,7 +7,9 @@ name = "job-intelligence"
 version = "0.2.0"
 description = "Tools for analyzing and extracting intelligence from job data"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "requests"
+]
 
 [project.optional-dependencies]
 dev = [
@@ -15,7 +17,8 @@ dev = [
     "ruff==0.15.22",
     "black",
     "mypy",
-    "pre-commit"
+    "pre-commit",
+    "types-requests"
 ]
 
 [tool.black]

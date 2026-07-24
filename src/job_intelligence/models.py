@@ -24,6 +24,10 @@ class JobPosting:
     salary: SalaryRange | None = None
     education: list[str] = field(default_factory=list)
 
+    # TODO:
+    # url: str | None = None
+    # source: str | None = None
+
     def __post_init__(self):
         # If a flat `skills` list is provided (tests/legacy callers),
         # populate `extracted_skills.required` so both APIs work.
