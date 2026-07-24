@@ -8,6 +8,12 @@ class ExtractedSkills:
 
 
 @dataclass
+class SalaryRange:
+    minimum: int | None = None
+    maximum: int | None = None
+
+
+@dataclass
 class JobPosting:
     title: str | None = None
     company: str | None = None
@@ -15,7 +21,7 @@ class JobPosting:
     description: str | None = None
     extracted_skills: ExtractedSkills = field(default_factory=ExtractedSkills)
     skills: list[str] = field(default_factory=list)
-    salary: str | None = None
+    salary: SalaryRange | None = None
     education: list[str] = field(default_factory=list)
 
     def __post_init__(self):
@@ -31,6 +37,7 @@ class CandidateProfile:
     skills: list[str] = field(default_factory=list)
     # experience: str | None = None
     education: list[str] = field(default_factory=list)
+    desired_salary: SalaryRange | None = None
 
 
 @dataclass

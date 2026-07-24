@@ -4,7 +4,9 @@ from job_intelligence.parser import (
     split_description_sections,
     get_heading_idx,
     extract_education,
+    extract_salary,
 )
+from job_intelligence.models import SalaryRange
 
 
 def test_extract_skills(tmp_path):
@@ -192,3 +194,19 @@ def test_extract_multiple_levels():
     result = extract_education(text)
 
     assert result == ["bachelor", "master"]
+
+
+def test_extract_salary_range():
+    result = extract_salary("The annual salary range is $90k-$110,000.")
+
+    assert result == SalaryRange(minimum=90_000, maximum=110_000)
+
+
+def test_extract_single_salary():
+    result = extract_salary("Compensation starts at $125,000 annually.")
+
+    assert result == SalaryRange(minimum=125_000, maximum=125_000)
+
+
+def test_extract_salary_returns_none_when_missing():
+    assert extract_salary("Competitive compensation.") is None

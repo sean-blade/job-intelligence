@@ -10,3 +10,15 @@ def calculate_category_score(
     matched = set(candidate_categories) & set(job_categories)
 
     return len(matched) / len(job_categories)
+
+
+# def calculate_penalty(
+#     candidate: CandidateProfile,
+#     job: JobPosting
+# ) -> float:
+#     penalty = 0
+
+#     if not salary_match(candidate, job):
+#         penalty += calculate_salary_penalty(candidate, job)
+
+#     return penalty

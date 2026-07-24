@@ -1,5 +1,6 @@
 import json
-from job_intelligence.models import JobPosting, ExtractedSkills
+import re
+from job_intelligence.models import JobPosting, ExtractedSkills, SalaryRange
 from pathlib import Path
 from job_intelligence.normalization import skill_in_text
 
@@ -114,6 +115,44 @@ def extract_education(
     return required_education
 
 
+def extract_salary(
+    description: str,
+) -> SalaryRange | None:
+    """Extract a USD salary range from a job description.
+
+    Supports annual amounts written with commas or a ``k`` suffix, such as
+    ``$90,000 - $110,000`` and ``$90k to $110k``.
+    """
+    amount = r"\$\s*(\d{1,3}(?:,\d{3})+|\d+(?:\.\d+)?\s*[kK]?)"
+    range_pattern = re.compile(
+        rf"{amount}\s*(?:-|–|—|to)\s*\$?\s*"
+        r"(\d{1,3}(?:,\d{3})+|\d+(?:\.\d+)?\s*[kK]?)"
+    )
+
+    match = range_pattern.search(description)
+    if match:
+        minimum = _parse_salary_amount(match.group(1))
+        maximum = _parse_salary_amount(match.group(2))
+        if minimum <= maximum:
+            return SalaryRange(minimum=minimum, maximum=maximum)
+        return SalaryRange(minimum=maximum, maximum=minimum)
+
+    match = re.search(amount, description)
+    if not match:
+        return None
+
+    salary = _parse_salary_amount(match.group(1))
+    return SalaryRange(minimum=salary, maximum=salary)
+
+
+def _parse_salary_amount(amount: str) -> int:
+    """Convert a salary amount like ``120,000`` or ``120k`` to an integer."""
+    normalized = amount.replace(",", "").strip().lower()
+    if normalized.endswith("k"):
+        return int(float(normalized[:-1].strip()) * 1_000)
+    return int(float(normalized))
+
+
 def parse_job_description(
     title: str,
     company: str,
@@ -127,11 +166,14 @@ def parse_job_description(
 
     extracted_skills = extract_skills(description, skills_file)
     # extracted_education = extract_education(description, edu_file)
+    salary = extract_salary(description)
+
     return JobPosting(
         title=title,
         company=company,
         location=location,
         description=description,
         extracted_skills=extracted_skills,
+        salary=salary,
         # education=extracted_education
     )
