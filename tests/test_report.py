@@ -51,3 +51,31 @@ def test_format_match_report():
     assert "cad" in report
     assert "docker" in report
     assert "programming" in report
+
+
+def test_format_match_report_includes_education():
+    job = JobPosting(
+        title="Biomedical Engineer",
+    )
+
+    result = MatchResult(education_match=True)
+
+    matches = [(job, result)]
+
+    report = format_match_report(matches=matches)
+
+    assert "Education Match: Yes" in report
+
+
+def test_format_match_report_shows_failed_education_match():
+    job = JobPosting(
+        title="Biomedical Engineer",
+    )
+
+    result = MatchResult(education_match=False)
+
+    matches = [(job, result)]
+
+    report = format_match_report(matches=matches)
+
+    assert "Education Match: No" in report

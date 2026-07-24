@@ -65,6 +65,9 @@ def format_match_report(matches):
         lines.append("")
         lines.append(f"Missing Preferred Skills: {missing_preferred}")
         lines.append("")
+        lines.append(f"Education Match: {
+            'Yes' if result.education_match else 'No'}")
+        lines.append("")
 
         lines.append("-" * 40)
 

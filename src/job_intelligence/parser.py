@@ -1,7 +1,7 @@
 import json
-from .models import JobPosting, ExtractedSkills
+from job_intelligence.models import JobPosting, ExtractedSkills
 from pathlib import Path
-from .normalization import skill_in_text, edu_in_text
+from job_intelligence.normalization import skill_in_text
 
 DEFAULT_SKILLS_FILE = Path("config/skills.json")
 DEFAULT_EDUCATION_FILE = Path("config/education.json")
@@ -15,7 +15,7 @@ def load_skills(filepath: Path = DEFAULT_SKILLS_FILE) -> list[str]:
         return json.load(file)
 
 
-def load_edu(filepath: Path = DEFAULT_EDUCATION_FILE) -> list[str]:
+def load_edu(filepath: Path = DEFAULT_EDUCATION_FILE) -> dict[str, list[str]]:
     """
     Load known education from a JSON file.
     """
@@ -107,9 +107,10 @@ def extract_education(
     education = load_edu(edu_config)
     description = description.lower()
     required_education = []
-    for edu in education:
-        if edu_in_text(edu, description):
-            required_education.append(edu)
+    for level, aliases in education.items():
+        terms = [level] + aliases
+        if any(term in description.lower() for term in terms):
+            required_education.append(level)
     return required_education
 
 

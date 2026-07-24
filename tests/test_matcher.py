@@ -232,3 +232,19 @@ def test_score_increase_with_preferred():
     result_with = match_candidate(candiate_with_preferred, job)
     assert result_with.preferred_score == 1.0
     assert result_without.preferred_score == 0
+
+
+def test_matcher_includes_education():
+    candidate = CandidateProfile(
+        skills=["python"],
+        education=["master"],
+    )
+
+    job = JobPosting(
+        skills=["python"],
+        education=["bachelor"],
+    )
+
+    result = match_candidate(candidate, job)
+
+    assert result.education_match is True

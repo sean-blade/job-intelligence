@@ -2,6 +2,7 @@ from job_intelligence.models import CandidateProfile, JobPosting, MatchResult
 from job_intelligence.normalization import normalize_skill
 from job_intelligence.category import categorize_skill
 from job_intelligence.scoring import calculate_category_score
+from job_intelligence.education import education_match
 
 
 def match_candidate(candidate: CandidateProfile, job: JobPosting) -> MatchResult:
@@ -74,6 +75,8 @@ def match_candidate(candidate: CandidateProfile, job: JobPosting) -> MatchResult
     score += 0.1 * preferred_score
     score = min(score, 1.0)
 
+    education_result = education_match(candidate, job)
+
     return MatchResult(
         score=score,
         missing_required_skills=missing_required_skills,
@@ -84,4 +87,5 @@ def match_candidate(candidate: CandidateProfile, job: JobPosting) -> MatchResult
         preferred_score=preferred_score,
         category_score=category_score,
         skill_score=skill_score,
+        education_match=education_result,
     )

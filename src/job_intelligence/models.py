@@ -9,14 +9,14 @@ class ExtractedSkills:
 
 @dataclass
 class JobPosting:
-    title: str
-    company: str
+    title: str | None = None
+    company: str | None = None
     location: str | None = None
     description: str | None = None
     extracted_skills: ExtractedSkills = field(default_factory=ExtractedSkills)
     skills: list[str] = field(default_factory=list)
     salary: str | None = None
-    education: str | None = None
+    education: list[str] = field(default_factory=list)
 
     def __post_init__(self):
         # If a flat `skills` list is provided (tests/legacy callers),
@@ -35,7 +35,7 @@ class CandidateProfile:
 
 @dataclass
 class MatchResult:
-    score: float
+    score: float = 0.0
     missing_required_skills: list[str] = field(default_factory=list)
     missing_preferred_skills: list[str] = field(default_factory=list)
     preferred_matched_skills: list[str] = field(default_factory=list)

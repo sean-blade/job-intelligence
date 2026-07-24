@@ -3,6 +3,7 @@ from job_intelligence.parser import (
     parse_job_description,
     split_description_sections,
     get_heading_idx,
+    extract_education,
 )
 
 
@@ -167,3 +168,27 @@ def test_alias_no_dupes():
 
     result = extract_skills(description=description)
     assert result.required.count("finite element analysis") == 1
+
+
+def test_extract_bachelors():
+    text = "Requires a bachelor's degree in engineering."
+
+    result = extract_education(text)
+
+    assert result == ["bachelor"]
+
+
+def test_extract_master_alias():
+    text = "Requires an M.S. degree."
+
+    result = extract_education(text)
+
+    assert result == ["master"]
+
+
+def test_extract_multiple_levels():
+    text = "Bachelor's required. Master's preferred."
+
+    result = extract_education(text)
+
+    assert result == ["bachelor", "master"]
