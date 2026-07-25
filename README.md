@@ -102,6 +102,15 @@ job-intelligence/
 │   └── workflows/
 │       ├── quality.yml
 │       └── tests.yml
+├── .uv-cache/
+│   ├── interpreter-v4/
+│   │   └── 2f8a8d68d05c453f/
+│   │       └── 5d10d3167e3cf6bb.msgpack
+│   ├── sdists-v9/
+│   │   └── .gitignore
+│   ├── .gitignore
+│   ├── .lock
+│   └── CACHEDIR.TAG
 ├── config/
 │   ├── aliases.json
 │   ├── candidate.json
@@ -113,12 +122,19 @@ job-intelligence/
 │   └── sample_jobs.csv
 ├── src/
 │   └── job_intelligence/
+│       ├── ingestion/
+│       │   ├── __init__.py
+│       │   ├── base.py
+│       │   ├── csv_connector.py
+│       │   ├── greenhouse_connector.py
+│       │   └── registry.py
 │       ├── __init__.py
 │       ├── __main__.py
 │       ├── analysis.py
 │       ├── candidate_loader.py
 │       ├── category.py
 │       ├── cli.py
+│       ├── education.py
 │       ├── loader.py
 │       ├── main.py
 │       ├── matcher.py
@@ -127,6 +143,7 @@ job-intelligence/
 │       ├── parser.py
 │       ├── rank_jobs.py
 │       ├── report.py
+│       ├── salary.py
 │       └── scoring.py
 ├── tests/
 │   ├── data/
@@ -135,6 +152,8 @@ job-intelligence/
 │   ├── test_candidate_loader.py
 │   ├── test_category.py
 │   ├── test_cli.py
+│   ├── test_education.py
+│   ├── test_ingestion.py
 │   ├── test_loader.py
 │   ├── test_main.py
 │   ├── test_matcher.py
@@ -143,11 +162,15 @@ job-intelligence/
 │   ├── test_parser.py
 │   ├── test_rank_jobs.py
 │   ├── test_report.py
-│   └── test_scoring.py
+│   ├── test_salary.py
+│   ├── test_scoring.py
+│   ├── test_trust.py
+│   └── tmp_test_connector.py
 ├── tools/
 │   └── update_structure_readme.py
 ├── .gitignore
 ├── .pre-commit-config.yaml
+├── AGENTS.md
 ├── ARCHITECTURE.md
 ├── CONTRIBUTING.md
 ├── LICENSE

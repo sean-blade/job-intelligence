@@ -8,6 +8,7 @@ from job_intelligence.models import JobPosting
 
 class GreenhouseConnector(JobConnector):
     def __init__(self, board: str):
+        super().__init__(board=board)
         self.board = board
 
     @property

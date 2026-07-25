@@ -3,6 +3,8 @@ from job_intelligence.ingestion.csv_connector import CSVConnector
 from job_intelligence.ingestion.base import JobConnector
 from job_intelligence.ingestion.greenhouse_connector import GreenhouseConnector
 from unittest.mock import Mock, patch
+import requests
+import pytest
 
 
 def test_csv_connector_source_name():
@@ -105,3 +107,16 @@ def test_greenhouse_connector_handles_no_jobs(mock_get):
     jobs = connector.fetch_jobs()
 
     assert jobs == []
+
+
+@patch("job_intelligence.ingestion.greenhouse_connector.requests.get")
+def test_greenhouse_connector_raises_on_failed_request(mock_get):
+    mock_response = Mock()
+    mock_response.raise_for_status.side_effect = requests.HTTPError()
+
+    mock_get.return_value = mock_response
+
+    connector = GreenhouseConnector("stripe")
+
+    with pytest.raises(requests.HTTPError):
+        connector.fetch_jobs()
