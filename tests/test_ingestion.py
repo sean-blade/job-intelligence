@@ -76,6 +76,54 @@ def test_greenhouse_connector_returns_jobs(mock_get):
 
 
 @patch("job_intelligence.ingestion.greenhouse_connector.requests.get")
+def test_greenhouse_connector_extracts_company_from_response(mock_get):
+    mock_response = Mock()
+
+    mock_response.json.return_value = {
+        "jobs": [
+            {
+                "title": "Software Engineer",
+                "content": "Python experience required",
+                "location": {"name": "Remote"},
+                "company": {"name": "Stripe Inc."},
+            }
+        ]
+    }
+
+    mock_response.raise_for_status.return_value = None
+    mock_get.return_value = mock_response
+
+    connector = GreenhouseConnector("stripe")
+    jobs = connector.fetch_jobs()
+
+    assert len(jobs) == 1
+    assert jobs[0].company == "Stripe Inc."
+
+
+@patch("job_intelligence.ingestion.greenhouse_connector.requests.get")
+def test_greenhouse_connector_cleans_html_description(mock_get):
+    mock_response = Mock()
+
+    mock_response.json.return_value = {
+        "jobs": [
+            {
+                "title": "Software Engineer",
+                "content": "<p>Python <strong>experience</strong> required &amp; preferred</p>",
+                "location": {"name": "Remote"},
+            }
+        ]
+    }
+
+    mock_response.raise_for_status.return_value = None
+    mock_get.return_value = mock_response
+
+    connector = GreenhouseConnector("stripe")
+    jobs = connector.fetch_jobs()
+
+    assert jobs[0].description == "Python experience required & preferred"
+
+
+@patch("job_intelligence.ingestion.greenhouse_connector.requests.get")
 def test_greenhouse_connector_uses_correct_url(mock_get):
     mock_response = Mock()
     mock_response.json.return_value = {"jobs": []}

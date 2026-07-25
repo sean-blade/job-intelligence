@@ -1,9 +1,10 @@
+import html
+import re
+
 import requests
 
 from job_intelligence.ingestion.base import JobConnector
 from job_intelligence.models import JobPosting
-
-# TODO: Clean Greenhouse HTML descriptions.
 
 
 class GreenhouseConnector(JobConnector):
@@ -31,11 +32,25 @@ class GreenhouseConnector(JobConnector):
             jobs.append(
                 JobPosting(
                     title=item.get("title"),
-                    # TODO: Use actual company name if available from source.
-                    company=self.board,
+                    company=self._extract_company(item),
                     location=item.get("location", {}).get("name"),
-                    description=item.get("content", ""),
+                    description=self._clean_description(item.get("content", "")),
                 )
             )
 
         return jobs
+
+    def _extract_company(self, item: dict) -> str | None:
+        return (
+            item.get("company", {}).get("name")
+            or item.get("company_name")
+            or self.board
+        )
+
+    def _clean_description(self, description: str | None) -> str | None:
+        if description is None:
+            return None
+
+        decoded = html.unescape(description)
+        stripped = re.sub(r"<[^>]+>", "", decoded)
+        return " ".join(stripped.split())
