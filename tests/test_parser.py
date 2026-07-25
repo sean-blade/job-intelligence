@@ -41,6 +41,17 @@ def test_parse_job_description():
     assert "cad" in job.extracted_skills.required
 
 
+def test_parse_job_description_extracts_education():
+    job = parse_job_description(
+        title="Biomedical Engineer",
+        company="Example Corp",
+        location="Remote",
+        description="A bachelor's degree in engineering is required.",
+    )
+
+    assert job.education == ["bachelor"]
+
+
 def test_custom_skill_file(tmp_path):
     # Create a temporary skills file
     skills_file = tmp_path / "skills.json"

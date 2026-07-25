@@ -212,6 +212,7 @@ version = "0.2.0"
 source = { editable = "." }
 dependencies = [
     { name = "requests" },
+    { name = "truststore" },
 ]
 
 [package.optional-dependencies]
@@ -237,6 +238,7 @@ requires-dist = [
     { name = "pytest", marker = "extra == 'dev'" },
     { name = "requests" },
     { name = "ruff", marker = "extra == 'dev'", specifier = "==0.15.22" },
+    { name = "truststore" },
     { name = "types-requests", marker = "extra == 'dev'" },
 ]
 provides-extras = ["dev"]

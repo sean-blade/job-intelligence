@@ -48,3 +48,8 @@ def edu_in_text(edu: str, text: str, edu_config: Path = DEFAULT_EDUCATION_FILE) 
         terms.extend(aliases[edu])
 
     return any(term.lower() in text for term in terms)
+
+
+def hourly_to_annual(hourly_wage: float) -> int:
+    """Convert an hourly wage to its full-time annual equivalent."""
+    return round(hourly_wage * 2_080)

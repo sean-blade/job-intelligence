@@ -165,7 +165,7 @@ def parse_job_description(
     """
 
     extracted_skills = extract_skills(description, skills_file)
-    # extracted_education = extract_education(description, edu_file)
+    extracted_education = extract_education(description)
     salary = extract_salary(description)
 
     return JobPosting(
@@ -175,5 +175,5 @@ def parse_job_description(
         description=description,
         extracted_skills=extracted_skills,
         salary=salary,
-        # education=extracted_education
+        education=extracted_education,
     )
