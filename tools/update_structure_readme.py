@@ -2,6 +2,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 README = ROOT / "README.md"
+COLLAPSED_DIRS = {"tests", "tools"}
 
 
 def generate_tree(path: Path, prefix="") -> list[str]:
@@ -21,6 +22,7 @@ def generate_tree(path: Path, prefix="") -> list[str]:
                 ".vscode",
                 ".mypy_cache",
                 ".ruff_cache",
+                ".uv-cache",
             }
         ],
         key=lambda x: (x.is_file(), x.name.lower()),
@@ -30,6 +32,10 @@ def generate_tree(path: Path, prefix="") -> list[str]:
         connector = "└── " if index == len(items) - 1 else "├── "
 
         if item.is_dir():
+            if item.name in COLLAPSED_DIRS:
+                lines.append(f"{prefix}{connector}{item.name}/ (...)")
+                continue
+
             lines.append(f"{prefix}{connector}{item.name}/")
             lines.extend(
                 generate_tree(

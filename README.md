@@ -102,15 +102,6 @@ job-intelligence/
 │   └── workflows/
 │       ├── quality.yml
 │       └── tests.yml
-├── .uv-cache/
-│   ├── interpreter-v4/
-│   │   └── 2f8a8d68d05c453f/
-│   │       └── 5d10d3167e3cf6bb.msgpack
-│   ├── sdists-v9/
-│   │   └── .gitignore
-│   ├── .gitignore
-│   ├── .lock
-│   └── CACHEDIR.TAG
 ├── config/
 │   ├── aliases.json
 │   ├── candidate.json
@@ -128,6 +119,10 @@ job-intelligence/
 │       │   ├── csv_connector.py
 │       │   ├── greenhouse_connector.py
 │       │   └── registry.py
+│       ├── processing/
+│       │   ├── __init__.py
+│       │   ├── filters.py
+│       │   └── pipeline.py
 │       ├── __init__.py
 │       ├── __main__.py
 │       ├── analysis.py
@@ -145,29 +140,8 @@ job-intelligence/
 │       ├── report.py
 │       ├── salary.py
 │       └── scoring.py
-├── tests/
-│   ├── data/
-│   │   └── sample_candidate.json
-│   ├── test_analysis.py
-│   ├── test_candidate_loader.py
-│   ├── test_category.py
-│   ├── test_cli.py
-│   ├── test_education.py
-│   ├── test_ingestion.py
-│   ├── test_loader.py
-│   ├── test_main.py
-│   ├── test_matcher.py
-│   ├── test_models.py
-│   ├── test_normalize.py
-│   ├── test_parser.py
-│   ├── test_rank_jobs.py
-│   ├── test_report.py
-│   ├── test_salary.py
-│   ├── test_scoring.py
-│   ├── test_trust.py
-│   └── tmp_test_connector.py
-├── tools/
-│   └── update_structure_readme.py
+├── tests/ (...)
+├── tools/ (...)
 ├── .gitignore
 ├── .pre-commit-config.yaml
 ├── AGENTS.md
@@ -177,6 +151,7 @@ job-intelligence/
 ├── pyproject.toml
 ├── README.md
 ├── ROADMAP.md
+├── TODO.md
 ├── uv.lock
 └── VISION.md
 ```
@@ -195,3 +170,7 @@ Future:
 - [ ] Job market trend analysis
 - [ ] Web dashboard
 - [ ] Application tracking
+
+## License
+
+This project is licensed under the MIT License. See LICENSE for details.
