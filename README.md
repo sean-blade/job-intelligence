@@ -113,12 +113,23 @@ job-intelligence/
 │   └── sample_jobs.csv
 ├── src/
 │   └── job_intelligence/
+│       ├── ingestion/
+│       │   ├── __init__.py
+│       │   ├── base.py
+│       │   ├── csv_connector.py
+│       │   ├── greenhouse_connector.py
+│       │   └── registry.py
+│       ├── processing/
+│       │   ├── __init__.py
+│       │   ├── filters.py
+│       │   └── pipeline.py
 │       ├── __init__.py
 │       ├── __main__.py
 │       ├── analysis.py
 │       ├── candidate_loader.py
 │       ├── category.py
 │       ├── cli.py
+│       ├── education.py
 │       ├── loader.py
 │       ├── main.py
 │       ├── matcher.py
@@ -127,33 +138,20 @@ job-intelligence/
 │       ├── parser.py
 │       ├── rank_jobs.py
 │       ├── report.py
+│       ├── salary.py
 │       └── scoring.py
-├── tests/
-│   ├── data/
-│   │   └── sample_candidate.json
-│   ├── test_analysis.py
-│   ├── test_candidate_loader.py
-│   ├── test_category.py
-│   ├── test_cli.py
-│   ├── test_loader.py
-│   ├── test_main.py
-│   ├── test_matcher.py
-│   ├── test_models.py
-│   ├── test_normalize.py
-│   ├── test_parser.py
-│   ├── test_rank_jobs.py
-│   ├── test_report.py
-│   └── test_scoring.py
-├── tools/
-│   └── update_structure_readme.py
+├── tests/ (...)
+├── tools/ (...)
 ├── .gitignore
 ├── .pre-commit-config.yaml
+├── AGENTS.md
 ├── ARCHITECTURE.md
 ├── CONTRIBUTING.md
 ├── LICENSE
 ├── pyproject.toml
 ├── README.md
 ├── ROADMAP.md
+├── TODO.md
 ├── uv.lock
 └── VISION.md
 ```
@@ -172,3 +170,7 @@ Future:
 - [ ] Job market trend analysis
 - [ ] Web dashboard
 - [ ] Application tracking
+
+## License
+
+This project is licensed under the MIT License. See LICENSE for details.
