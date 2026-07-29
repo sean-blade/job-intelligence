@@ -124,6 +124,32 @@ def test_greenhouse_connector_cleans_html_description(mock_get):
 
 
 @patch("job_intelligence.ingestion.greenhouse_connector.requests.get")
+def test_greenhouse_connector_parses_skills(mock_get):
+    mock_response = Mock()
+
+    mock_response.json.return_value = {
+        "jobs": [
+            {
+                "title": "Software Engineer",
+                "content": "Required: Python, CAD\nPreferred: Docker",
+                "location": {"name": "Remote"},
+            }
+        ]
+    }
+
+    mock_response.raise_for_status.return_value = None
+    mock_get.return_value = mock_response
+
+    connector = GreenhouseConnector(
+        "stripe", skills_file="config/skills_dictionary.json"
+    )
+    jobs = connector.fetch_jobs()
+
+    assert jobs[0].extracted_skills.required == ["python", "cad"]
+    assert jobs[0].extracted_skills.preferred == ["docker"]
+
+
+@patch("job_intelligence.ingestion.greenhouse_connector.requests.get")
 def test_greenhouse_connector_uses_correct_url(mock_get):
     mock_response = Mock()
     mock_response.json.return_value = {"jobs": []}

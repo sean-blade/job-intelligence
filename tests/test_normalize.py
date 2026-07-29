@@ -58,3 +58,10 @@ def test_skill_match_case_insensitive():
 
 def test_skill_nomatch_substring():
     assert not skill_in_text("cad", "Dedicated engineer")
+
+
+def test_skill_matches_word_boundaries():
+    assert skill_in_text("cad", "Experience with CAD and Python")
+    assert not skill_in_text("cad", "Dedicated engineer")
+    assert not skill_in_text("c", "CAD is required")
+    assert not skill_in_text("r", "Required experience")

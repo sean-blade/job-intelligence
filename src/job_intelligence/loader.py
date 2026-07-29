@@ -22,7 +22,7 @@ def load_jobs_from_csv(filepath: str | Path) -> list[JobPosting]:
                 company=row["company"],
                 location=row["location"],
                 description=row["description"],
-                skills_file=Path("config/skills.json"),
+                skills_file=Path("config/skills_dictionary.json"),
             )
 
             jobs.append(job)

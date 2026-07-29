@@ -2,18 +2,56 @@ import json
 import re
 from job_intelligence.models import JobPosting, ExtractedSkills, SalaryRange
 from pathlib import Path
-from job_intelligence.normalization import skill_in_text
+from job_intelligence.normalization import load_aliases, skill_in_text
 
-DEFAULT_SKILLS_FILE = Path("config/skills.json")
+DEFAULT_SKILLS_FILE = Path("config/skills_dictionary.json")
 DEFAULT_EDUCATION_FILE = Path("config/education.json")
 
 
 def load_skills(filepath: Path = DEFAULT_SKILLS_FILE) -> list[str]:
     """
     Load known skills from a JSON file.
+
+    The skills file may be a flat list of strings, or a dictionary of categories
+    mapping to lists of skills.
     """
     with open(filepath, "r", encoding="utf-8") as file:
-        return json.load(file)
+        data = json.load(file)
+
+    if isinstance(data, dict):
+        skills = []
+        for value in data.values():
+            if isinstance(value, list):
+                skills.extend(value)
+            else:
+                raise ValueError(
+                    f"Invalid skills dictionary format in {filepath}: "
+                    "each value must be a list of skill strings"
+                )
+    elif isinstance(data, list):
+        skills = data
+    else:
+        raise ValueError(
+            f"Invalid skills file format in {filepath}: expected list or dict"
+        )
+
+    skill_strings: list[str] = []
+    seen: set[str] = set()
+
+    for skill in skills:
+        normalized = str(skill).lower()
+        if normalized not in seen:
+            skill_strings.append(normalized)
+            seen.add(normalized)
+
+    aliases = load_aliases()
+    for canonical in aliases:
+        normalized = canonical.lower()
+        if normalized not in seen:
+            skill_strings.append(normalized)
+            seen.add(normalized)
+
+    return skill_strings
 
 
 def load_edu(filepath: Path = DEFAULT_EDUCATION_FILE) -> dict[str, list[str]]:

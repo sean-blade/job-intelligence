@@ -41,6 +41,18 @@ def test_parse_job_description():
     assert "cad" in job.extracted_skills.required
 
 
+def test_parse_job_description_alias_skills():
+    job = parse_job_description(
+        title="Mechanical Engineer",
+        company="Example Corp",
+        location="Remote",
+        description="Experience with FEA and CAD.",
+    )
+
+    assert "finite element analysis" in job.extracted_skills.required
+    assert "cad" in job.extracted_skills.required
+
+
 def test_parse_job_description_extracts_education():
     job = parse_job_description(
         title="Biomedical Engineer",
@@ -61,6 +73,20 @@ def test_custom_skill_file(tmp_path):
     result = extract_skills(description, skills_file=skills_file)
 
     assert result.required == ["python", "docker"]
+    assert result.preferred == []
+
+
+def test_custom_skill_dictionary(tmp_path):
+    skills_file = tmp_path / "skills.json"
+    skills_file.write_text(
+        '{"programming": ["python", "docker"], "tools": ["git"]}',
+        encoding="utf-8",
+    )
+
+    description = "Looking for an engineer with Python, Docker, and Git experience."
+    result = extract_skills(description, skills_file=skills_file)
+
+    assert result.required == ["python", "docker", "git"]
     assert result.preferred == []
 
 
