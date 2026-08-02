@@ -2,7 +2,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 README = ROOT / "README.md"
-COLLAPSED_DIRS = {"tests", "tools"}
+COLLAPSED_DIRS = {
+    "tests",
+    "tools",
+    "cache",
+    "databases",
+    "raw",
+    "processed",
+}
 
 
 def generate_tree(path: Path, prefix="") -> list[str]:
@@ -33,7 +40,7 @@ def generate_tree(path: Path, prefix="") -> list[str]:
 
         if item.is_dir():
             if item.name in COLLAPSED_DIRS:
-                lines.append(f"{prefix}{connector}{item.name}/ (...)")
+                lines.append(f"{prefix}{connector}{item.name}/ ......")
                 continue
 
             lines.append(f"{prefix}{connector}{item.name}/")

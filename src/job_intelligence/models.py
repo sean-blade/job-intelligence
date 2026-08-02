@@ -23,10 +23,9 @@ class JobPosting:
     skills: list[str] = field(default_factory=list)
     salary: SalaryRange | None = None
     education: list[str] = field(default_factory=list)
-
-    # TODO:
-    # url: str | None = None
-    # source: str | None = None
+    url: str | None = None
+    source: str | None = None
+    relevant: bool = False
 
     def __post_init__(self):
         # If a flat `skills` list is provided (tests/legacy callers),

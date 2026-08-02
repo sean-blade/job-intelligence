@@ -1,7 +1,9 @@
+from pathlib import Path
 import sys
 import subprocess
 import json
 from job_intelligence.cli import analyze_file
+from job_intelligence.storage.sqlite_store import SQLiteStore
 
 
 def test_analyze_file():
@@ -108,3 +110,36 @@ def test_ingest_command_saves_json(tmp_path):
     assert isinstance(saved, list)
     assert len(saved) == 2
     assert saved[0]["title"] == "Biomedical Engineer"
+
+
+def test_ingest_command_saves_to_sqlite(tmp_path):
+    db_path = tmp_path / "jobs.db"
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "job_intelligence",
+            "ingest",
+            "csv",
+            "data/sample_jobs.csv",
+            "--database",
+            Path(db_path),
+        ],
+        capture_output=True,
+        text=True,
+        check=False,  # Don't raise an exception on non-zero exit code; we want to check it below
+    )
+    # Debugging output in case of failure
+    print("STDOUT:")
+    print(result.stdout)
+    print("STDERR:")
+    print(result.stderr)
+
+    store = SQLiteStore(Path(db_path))
+    jobs = store.load_jobs()
+    assert len(jobs) > 0
+    store.close()
+
+    assert result.returncode == 0
+    assert db_path.exists()
