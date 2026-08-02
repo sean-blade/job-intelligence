@@ -18,7 +18,8 @@ class SQLiteStore:
                 title TEXT,
                 company TEXT,
                 location TEXT,
-                description TEXT
+                description TEXT,
+                relevant INTEGER NOT NULL DEFAULT 0
             )
         """)
 
@@ -28,20 +29,32 @@ class SQLiteStore:
         for job in jobs:
             self.cursor.execute(
                 """
-                INSERT INTO jobs (title, company, location, description) VALUES (?, ?, ?, ?)
+                INSERT INTO jobs (title, company, location, description, relevant) VALUES (?, ?, ?, ?, ?)
                 """,
-                (job.title, job.company, job.location, job.description),
+                (
+                    job.title,
+                    job.company,
+                    job.location,
+                    job.description,
+                    int(job.relevant),
+                ),
             )
 
         self.connection.commit()
 
     def load_jobs(self) -> list[JobPosting]:
-        self.cursor.execute("SELECT title, company, location, description FROM jobs")
+        self.cursor.execute(
+            "SELECT title, company, location, description, relevant FROM jobs"
+        )
         rows = self.cursor.fetchall()
         jobs = []
         for row in rows:
             job = JobPosting(
-                title=row[0], company=row[1], location=row[2], description=row[3]
+                title=row[0],
+                company=row[1],
+                location=row[2],
+                description=row[3],
+                relevant=bool(row[4]),
             )
             jobs.append(job)
         return jobs
