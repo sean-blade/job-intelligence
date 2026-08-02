@@ -1,39 +1,69 @@
 # Job Intelligence
 
-A project for exploring automated job analysis and intelligence tools.
+A tool for collecting, analyzing, and ranking job postings against a candidate profile.
 
 ## Goals
 
 - Analyze job postings against candidate profiles
 - Identify relevant job opportunities
 - Provide useful information for job search decisions
+- Collect job postings from files and external sources (job boards)
+- Store job data for later analysis and automation
 
 ## Current Status
 
-**Project Status:** Phase 2 Development
+**Project Status:** Late Phase 2 Development
 **Current Release:** v0.2.0
 
+Job Intelligence currently supports job ingestion from CSV files and Greenhouse
+job boards, candidate-based matching and ranking, requirement extraction, JSON
+exports, and initial SQLite persistence.
+
 ### Completed
+
+- Candidate profile loading
 - CSV job ingestion
+- Greenhouse job-board conector
+- Shared ingestion connector interface and registry
 - Candidate profile loading
 - Skill extraction
 - Skill normalization and aliases
+- Skill category matching
+- Required vs preferred skill detection
+- Education extraction and level matching
+- Salary range extraction and overlap detection
 - Candidate/job matching
 - Job ranking
-- Command-line interface
-- Automated testing
-- Automated project structure documentation
-- Required vs preferred skill detection
-- Skill category matching
 - Match score explanations
+- Text reports
+- Command-line interface
+- JSON export (optional)
+- Automated testing
+- Ruff, Black, mypy, pre-commit, and Github Actions
+- Automated project structure documentation
 
 ### Planned
 
-- Improved job description parsing
-- Experience matching
-- Education matching
-- Candidate preferences
-- Improved match explanations
+- Relevance filtering during ingestion
+- Completing the SQLite-backed ingestion workflow
+- Prevent duplicate job records
+- Loading stored jobs for analysis
+- Salary-based score penalty
+- Improved parsing accuracy
+
+## Next Milestone
+
+Complete usable live-data workflow
+
+```text
+Greenhouse or CSV
+    → convert to JobPosting objects
+    → filter relevant jobs
+    → store in SQLite
+    → load stored jobs
+    → rank against candidate
+    → generate report
+```
 
 ### Requirements
 Python version: 3.13
@@ -62,13 +92,8 @@ Linux
 ```bash
 source .venv/bin/activate
 ```
-### 3. Install dependencies:
+### 3. Install Git Hook:
 
-```bash
-pip install -e ".[dev]"
-```
-
-### 4. Install Pre-commit hooks
 ```bash
 pre-commit install
 ```
@@ -80,9 +105,42 @@ Analyze jobs:
 ```bash
 python -m job_intelligence analyze data/sample_jobs.csv
 ```
-Match jobs against specific candidate profile:
+
+Match jobs against Default candidate profile:
+
 ```bash
 python -m job_intelligence match data/sample_jobs.csv
+```
+
+Match jobs against specific candidate profile:
+
+```bash
+python -m job_intelligence match data/sample_jobs.csv \
+    --candidate data/sample_candidate.json
+```
+
+Ingest jobs from CSV into SQLite:
+
+```bash
+python -m job_intelligence ingest csv data/sample_jobs.csv
+```
+Ingest jobs from Greenhouse into SQLite:
+
+```bash
+python -m job_intelligence ingest greenhouse stripe   # Stripe is an example job board
+```
+
+Using custom Database path:
+```bash
+python -m job_intelligence ingest greenhouse stripe \
+    --database data/databases/jobs.db
+```
+
+Optional export to JSON:
+```bash
+python -m job_intelligence ingest greenhouse stripe \
+    --output data/raw/stripe_jobs.json \
+    --limit 10  # (Optional)
 ```
 ## Testing
 Functional verification
@@ -107,8 +165,13 @@ job-intelligence/
 │   ├── candidate.json
 │   ├── categories.json
 │   ├── education.json
-│   └── skills.json
+│   ├── skills.json
+│   └── skills_dictionary.json
 ├── data/
+│   ├── cache/ ......
+│   ├── databases/ ......
+│   ├── processed/ ......
+│   ├── raw/ ......
 │   ├── sample_candidate.json
 │   └── sample_jobs.csv
 ├── src/
@@ -123,6 +186,11 @@ job-intelligence/
 │       │   ├── __init__.py
 │       │   ├── filters.py
 │       │   └── pipeline.py
+│       ├── storage/
+│       │   ├── migrations/
+│       │   │   └── 001_initial.sql
+│       │   ├── __init__.py
+│       │   └── sqlite_store.py
 │       ├── __init__.py
 │       ├── __main__.py
 │       ├── analysis.py
@@ -140,8 +208,8 @@ job-intelligence/
 │       ├── report.py
 │       ├── salary.py
 │       └── scoring.py
-├── tests/ (...)
-├── tools/ (...)
+├── tests/ ......
+├── tools/ ......
 ├── .gitignore
 ├── .pre-commit-config.yaml
 ├── AGENTS.md
@@ -159,17 +227,25 @@ job-intelligence/
 <!-- PROJECT_STRUCTURE_END -->
 ## Features
 
-- [x] Collect job posting data from files
-- [x] Extract skills from job descriptions
-- [x] Match candidate profiles to job postings
-- [x] Rank jobs by compatibility
-- [x] Generate match reports
+- [x] Load reusable candidate profiles
+- [x] Collect jobs from CSV files
+- [x] Collect jobs from Greenhouse job boards
+- [x] Convert different sources into a shared `JobPosting` model
+- [x] Extract required and preferred skills
+- [x] Normalize skill names and aliases
+- [x] Extract education requirements
+- [x] Extract salary ranges
+- [x] Match and rank jobs against a candidate
+- [x] Generate readable match reports
+- [x] Export jobs to JSON
+- [x] Persist jobs in SQLite
+- [ ] Filter irrelevant jobs during ingestion
+- [ ] Prevent duplicate stored jobs
+- [ ] Match and analyze directly from SQLite
+- [ ] Run ingestion automatically on a server
+- [ ] Provide a web dashboard
+- [ ] Track job applications
 
-Future:
-- [ ] Automated job collection
-- [ ] Job market trend analysis
-- [ ] Web dashboard
-- [ ] Application tracking
 
 ## License
 
