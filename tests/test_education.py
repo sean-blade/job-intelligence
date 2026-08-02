@@ -1,4 +1,7 @@
-from job_intelligence.education import highest_education_level, education_match
+from job_intelligence.extraction.education import (
+    highest_education_level,
+    education_match,
+)
 from job_intelligence.models import CandidateProfile, JobPosting
 
 

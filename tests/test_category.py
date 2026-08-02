@@ -1,4 +1,4 @@
-from job_intelligence.category import load_categories, categorize_skill
+from job_intelligence.analysis.category import load_categories, categorize_skill
 from job_intelligence.normalization import normalize_skill
 
 

@@ -1,6 +1,6 @@
 from job_intelligence.report import format_skill_report, format_match_report
 from job_intelligence.models import JobPosting, MatchResult
-from job_intelligence.parser import ExtractedSkills
+from job_intelligence.extraction.parser import ExtractedSkills
 
 
 def test_format_skill_report():

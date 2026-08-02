@@ -1,6 +1,6 @@
 from job_intelligence.normalization import normalize_skill, skill_in_text
 from job_intelligence.models import CandidateProfile, JobPosting
-from job_intelligence.matcher import match_candidate
+from job_intelligence.matching.matcher import match_candidate
 
 
 def test_normalize_skill():

@@ -1,4 +1,4 @@
-from job_intelligence.scoring import calculate_category_score
+from job_intelligence.matching.scoring import calculate_category_score
 
 
 def test_category_score():

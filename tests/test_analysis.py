@@ -1,4 +1,4 @@
-from job_intelligence.analysis import (
+from job_intelligence.analysis.skills import (
     skill_frequency,
     skill_prevalence,
     categorize_prevalance,
