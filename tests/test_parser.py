@@ -1,4 +1,4 @@
-from job_intelligence.parser import (
+from job_intelligence.extraction.parser import (
     extract_skills,
     parse_job_description,
     split_description_sections,

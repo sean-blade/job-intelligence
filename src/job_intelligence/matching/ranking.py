@@ -1,4 +1,4 @@
-from .models import CandidateProfile, JobPosting, MatchResult
+from job_intelligence.models import CandidateProfile, JobPosting, MatchResult
 from .matcher import match_candidate
 
 

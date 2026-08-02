@@ -1,4 +1,4 @@
-from job_intelligence.rank_jobs import rank_jobs
+from job_intelligence.matching.ranking import rank_jobs
 from job_intelligence.models import CandidateProfile, JobPosting
 
 

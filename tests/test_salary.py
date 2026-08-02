@@ -1,5 +1,5 @@
 from job_intelligence.models import SalaryRange
-from job_intelligence.salary import salary_overlap
+from job_intelligence.extraction.salary import salary_overlap
 
 
 def test_salary_ranges_overlap():

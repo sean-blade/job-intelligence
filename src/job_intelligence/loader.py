@@ -2,7 +2,7 @@ import csv
 import json
 from dataclasses import asdict
 from pathlib import Path
-from .parser import parse_job_description
+from .extraction.parser import parse_job_description
 from .models import JobPosting
 
 

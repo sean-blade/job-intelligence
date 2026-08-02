@@ -1,10 +1,10 @@
 import argparse
 from pathlib import Path
-from .analysis import categorize_prevalance, skill_prevalence
+from .analysis.skills import categorize_prevalance, skill_prevalence
 from .candidate_loader import load_candidate
 from .ingestion.registry import get_connector
 from .loader import load_jobs_from_csv, save_jobs_to_json
-from .rank_jobs import rank_jobs
+from .matching.ranking import rank_jobs
 from .report import format_match_report, format_skill_report
 from .storage.sqlite_store import SQLiteStore
 

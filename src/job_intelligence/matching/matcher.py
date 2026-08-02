@@ -1,8 +1,8 @@
 from job_intelligence.models import CandidateProfile, JobPosting, MatchResult
 from job_intelligence.normalization import normalize_skill
-from job_intelligence.category import categorize_skill
-from job_intelligence.scoring import calculate_category_score
-from job_intelligence.education import education_match
+from job_intelligence.analysis.category import categorize_skill
+from job_intelligence.matching.scoring import calculate_category_score
+from job_intelligence.extraction.education import education_match
 
 
 def match_candidate(candidate: CandidateProfile, job: JobPosting) -> MatchResult:

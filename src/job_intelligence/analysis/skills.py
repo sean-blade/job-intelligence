@@ -1,6 +1,6 @@
 from collections import Counter
 
-from .models import JobPosting
+from job_intelligence.models import JobPosting
 from .category import categorize_skill
 
 

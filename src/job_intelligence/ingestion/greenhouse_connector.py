@@ -6,7 +6,7 @@ import requests
 
 from job_intelligence.ingestion.base import JobConnector
 from job_intelligence.models import JobPosting
-from job_intelligence.parser import parse_job_description
+from job_intelligence.extraction.parser import parse_job_description
 
 
 class GreenhouseConnector(JobConnector):
