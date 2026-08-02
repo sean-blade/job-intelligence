@@ -28,8 +28,7 @@ class SQLiteStore:
                 required_skills TEXT NOT NULL DEFAULT '[]',
                 preferred_skills TEXT NOT NULL DEFAULT '[]'
             )
-        """)
-
+            """)
         self.connection.commit()
 
     def save_jobs(self, jobs: list[JobPosting]):
