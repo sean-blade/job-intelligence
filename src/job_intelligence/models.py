@@ -23,6 +23,7 @@ class JobPosting:
     skills: list[str] = field(default_factory=list)
     salary: SalaryRange | None = None
     education: list[str] = field(default_factory=list)
+    # TODO: implement url and source fields in the parser
     url: str | None = None
     source: str | None = None
     relevant: bool = False

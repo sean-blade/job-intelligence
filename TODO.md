@@ -1,11 +1,29 @@
 ## Todos
-- [ ] reorganize files in job_intelligence and refactor
-- [ ] job filter for relevancy
-- [ ] salary score penalty
-- [ ] in greenhouse connector, clean up html entities
+
 - [ ] check education extractor to see if it is supposed to output all levels
-- [ ] extractor for skills needs to be checked to see why a few skills if any are pulled
 - [ ] every connector should populate source, source_id, board (ex: greenhouse, stripe, stripe)
+- [ ] relevance of job filtering
+- [ ] rank stored jobs
+- [ ] display results
+
+## Deferred tasks
+- [ ] reorganize files in job_intelligence and refactor
+
+## Pipeline Status
+
+Greenhouse fetch                WORKING
+CSV fetch                       WORKING
+JobPosting conversion           WORKING
+Requirement extraction          WORKING, with accuracy limitations
+Relevance filtering             PARTIAL
+SQLite save/load                WORKING
+CLI database integration        WORKING
+Duplicate handling              DEFERRED
+Load SQLite into matcher        NOT STARTED
+Rank real stored jobs           NOT STARTED
+Generate final real-data report PARTIAL
+Salary scoring penalty          DEFERRED
+
 <!--
 src/job_intelligence/
 

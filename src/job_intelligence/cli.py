@@ -1,5 +1,7 @@
 import argparse
 from pathlib import Path
+
+from job_intelligence.processing.pipeline import process_jobs
 from .analysis.skills import categorize_prevalance, skill_prevalence
 from .candidate_loader import load_candidate
 from .ingestion.registry import get_connector
@@ -81,6 +83,7 @@ def run_ingest(
     }
     connector = get_connector(source, **connector_options[source])
     jobs = connector.fetch_jobs()
+    jobs = process_jobs(jobs)
     store = SQLiteStore(database)
     try:
         store.save_jobs(jobs)

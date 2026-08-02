@@ -176,12 +176,26 @@ job-intelligence/
 │   └── sample_jobs.csv
 ├── src/
 │   └── job_intelligence/
+│       ├── analysis/
+│       │   ├── __init__.py
+│       │   ├── category.py
+│       │   └── skills.py
+│       ├── extraction/
+│       │   ├── __init__.py
+│       │   ├── education.py
+│       │   ├── parser.py
+│       │   └── salary.py
 │       ├── ingestion/
 │       │   ├── __init__.py
 │       │   ├── base.py
 │       │   ├── csv_connector.py
 │       │   ├── greenhouse_connector.py
 │       │   └── registry.py
+│       ├── matching/
+│       │   ├── __init__.py
+│       │   ├── matcher.py
+│       │   ├── ranking.py
+│       │   └── scoring.py
 │       ├── processing/
 │       │   ├── __init__.py
 │       │   ├── filters.py
@@ -193,21 +207,13 @@ job-intelligence/
 │       │   └── sqlite_store.py
 │       ├── __init__.py
 │       ├── __main__.py
-│       ├── analysis.py
 │       ├── candidate_loader.py
-│       ├── category.py
 │       ├── cli.py
-│       ├── education.py
 │       ├── loader.py
 │       ├── main.py
-│       ├── matcher.py
 │       ├── models.py
 │       ├── normalization.py
-│       ├── parser.py
-│       ├── rank_jobs.py
-│       ├── report.py
-│       ├── salary.py
-│       └── scoring.py
+│       └── report.py
 ├── tests/ ......
 ├── tools/ ......
 ├── .gitignore
