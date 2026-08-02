@@ -1,10 +1,12 @@
+from pathlib import Path
 import sqlite3
 from job_intelligence.models import JobPosting
 
 
 class SQLiteStore:
-    def __init__(self, db_path: str):
+    def __init__(self, db_path: Path):
         self.db_path = db_path
+        self.db_path.parent.mkdir(parents=True, exist_ok=True)
         self.connection = sqlite3.connect(self.db_path)
         self.cursor = self.connection.cursor()
         self._init_db()

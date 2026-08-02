@@ -6,6 +6,7 @@ from .ingestion.registry import get_connector
 from .loader import load_jobs_from_csv, save_jobs_to_json
 from .rank_jobs import rank_jobs
 from .report import format_match_report, format_skill_report
+from .storage.sqlite_store import SQLiteStore
 
 
 def analyze_file(filepath: str):
@@ -38,6 +39,12 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help="Optional limit on how many jobs to save",
     )
+    ingest_parser.add_argument(
+        "--database",
+        type=Path,
+        default=Path("data/databases/jobs.db"),
+        help="Path to SQLite database",
+    )
     analyze_parser.add_argument("filepath", help="Path to job CSV file")
     match_parser.add_argument(
         "--candidate", default=None, help="Path to candidate JSON file"
@@ -65,19 +72,27 @@ def run_match(job_file: str, candidate_path: str | None) -> None:
     print(format_match_report(rank_jobs(candidate, jobs)))
 
 
-def run_ingest(source: str, target: str, output: str | None, limit: int | None) -> None:
+def run_ingest(
+    source: str, target: str, output: str | None, limit: int | None, database: Path
+) -> None:
     connector_options = {
         "csv": {"path": target},
         "greenhouse": {"board": target},
     }
     connector = get_connector(source, **connector_options[source])
     jobs = connector.fetch_jobs()
+    store = SQLiteStore(database)
+    try:
+        store.save_jobs(jobs)
+    finally:
+        store.close()
     print(f"Fetched: {len(jobs)} jobs from {source}")
+    print(f"Saved: {len(jobs)} jobs as database to {database}")
 
     if output:
         jobs_to_save = jobs if limit is None else jobs[:limit]
         save_jobs_to_json(jobs_to_save, Path(output))
-        print(f"Saved {len(jobs_to_save)} jobs to {output}")
+        print(f"Saved {len(jobs_to_save)} jobs as JSON to {output}")
 
 
 def main() -> None:
@@ -90,4 +105,4 @@ def main() -> None:
         run_match(args.job_file, args.candidate)
 
     elif args.command == "ingest":
-        run_ingest(args.source, args.target, args.output, args.limit)
+        run_ingest(args.source, args.target, args.output, args.limit, args.database)

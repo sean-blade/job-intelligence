@@ -18,7 +18,6 @@ def is_relevant_job(job: JobPosting) -> bool:
 
 
 def filter_jobs(jobs: list[JobPosting]) -> list[JobPosting]:
-    return [job for job in jobs if is_relevant_job(job)]
-
-
-# TODO: add relevant as param to jobposting class to filter view, prevent destruction of information.
+    for job in jobs:
+        job.relevant = is_relevant_job(job)
+    return jobs
