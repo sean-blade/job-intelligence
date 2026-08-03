@@ -17,4 +17,4 @@
                      |
                      v
               existing pipeline
-        parser → matcher → ranker → reports
+      parser → storage → matcher → ranker → reports

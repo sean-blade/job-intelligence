@@ -41,11 +41,11 @@ exports, and initial SQLite persistence.
 - Automated testing
 - Ruff, Black, mypy, pre-commit, and Github Actions
 - Automated project structure documentation
+- Relevance filtering during ingestion
+- Completing the SQLite-backed ingestion workflow
 
 ### Planned
 
-- Relevance filtering during ingestion
-- Completing the SQLite-backed ingestion workflow
 - Prevent duplicate job records
 - Loading stored jobs for analysis
 - Salary-based score penalty
@@ -127,27 +127,33 @@ python -m job_intelligence ingest csv data/sample_jobs.csv
 Ingest jobs from Greenhouse into SQLite:
 
 ```bash
-python -m job_intelligence ingest greenhouse stripe   # Stripe is an example job board
+python -m job_intelligence ingest greenhouse stripe   # 'Stripe' is an example job board
 ```
 
 Using custom Database path:
+
 ```bash
 python -m job_intelligence ingest greenhouse stripe \
     --database data/databases/jobs.db
 ```
 
 Optional export to JSON:
+
 ```bash
+# Limit results to 10 jobs (optional)
 python -m job_intelligence ingest greenhouse stripe \
     --output data/raw/stripe_jobs.json \
-    --limit 10  # (Optional)
+    --limit 10  
 ```
 ## Testing
+
 Functional verification
+
 ```bash
 pytest
 ```
 Linting and Formatting
+
 ```bash
 pre-commit run --all-files
 ```

@@ -1,4 +1,5 @@
 ## Phase 1 - Core Analysis
+
 Create an engine that analyzes job postings against a candidate profile.
 
 **Completed:**
@@ -33,10 +34,12 @@ And receive:
 - explanation of match score
 
 ## Phase 2 - Intelligence Product
+
 Turn analysis engine into something useful in job searching
 Better decision making
 
 ### 2.1 Candidate Profile Management
+
 Store user profile for modularity and so that it only needs to be created once instead of per analysis.
 
 Features:
@@ -44,7 +47,7 @@ Features:
 - [x] Configurable profile location
 - [ ] Support:
     - [x] Skills
-    - [ ] Education
+    - [x] Education
     - [ ] Experience
     - [ ] Preferences
 
@@ -55,6 +58,7 @@ config/
  ```
 
 ### 2.2 Job Collection Input
+
 Goal: Analyse multiple jobs without manually editing code
 
 Input: 
@@ -76,6 +80,7 @@ Analyze an arbitrary number of job postings without changing code.
 ```
 
 ### 2.3 Ranking System
+
 Identify which jobs I should focus on first
 
 Features:
@@ -95,6 +100,7 @@ Top Matches
 ```
 
 ### 2.4 Improve Match Explanation
+
 Understand why a job scored highly or poorly
 
 Currently:
@@ -121,6 +127,7 @@ The tool is able to:
 - explain the ranking
 
 ## Phase 3 - Automation
+
 Remove manual effort (host on server)
 
 ### 3.1 Persistent Storage
@@ -145,6 +152,7 @@ Analysis:
 - Clearance (if applicable)
 
 ### 3.2 Automated job gathering
+
 Find jobs for user
 
 Sources:
@@ -154,6 +162,7 @@ Sources:
 - Manual imports
 
 ### 3.3 Scheduled Execution
+
 System runs without intervention
 
 Deploy:
@@ -163,7 +172,9 @@ Deploy:
 - error handling
 
 **Phase 3 Exit criteria**
+
 it should look something like: 
+
 ```text
 Good morning.
 
@@ -179,9 +190,11 @@ Reasons:
 ```
 
 ## Phase 4 - Polish
+
 Make system portfolio ready
 
 ### 4.1 Dashboard
+
 Possible stack:
 - FastAPI backend
 - SQLite
@@ -196,6 +209,7 @@ Features:
 - Save/load profile
 
 ### 4.2 Quality
+
 Add:
 
 - documentation
@@ -207,6 +221,7 @@ Add:
 - Docker
 
 ## Stretch Goals
+
 These are explicitly optional.
 
     NLP embeddings

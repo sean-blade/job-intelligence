@@ -23,5 +23,8 @@ Examples:
 
 Pull requests should:
 - Explain what changed
+    - Summary
+    - items
 - Include tests for new functionality
 - Pass all existing tests
+- Future steps if applicable
