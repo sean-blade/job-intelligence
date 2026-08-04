@@ -1,13 +1,11 @@
 ## Todos
 
-- [ ] check education extractor to see if it is supposed to output all levels
+- [x] check education extractor to see if it is supposed to output all levels
 - [ ] every connector should populate source, source_id, board (ex: greenhouse, stripe, stripe)
 - [ ] relevance of job filtering
 - [ ] rank stored jobs
 - [ ] display results
-
-## Deferred tasks
-- [ ] reorganize files in job_intelligence and refactor
+- [x] reorganize files in job_intelligence and refactor
 
 ## Pipeline Status
 
@@ -15,7 +13,7 @@ Greenhouse fetch                WORKING
 CSV fetch                       WORKING
 JobPosting conversion           WORKING
 Requirement extraction          WORKING, with accuracy limitations
-Relevance filtering             PARTIAL
+Relevance filtering             WORKING
 SQLite save/load                WORKING
 CLI database integration        WORKING
 Duplicate handling              DEFERRED

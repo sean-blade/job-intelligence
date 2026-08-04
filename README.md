@@ -41,11 +41,11 @@ exports, and initial SQLite persistence.
 - Automated testing
 - Ruff, Black, mypy, pre-commit, and Github Actions
 - Automated project structure documentation
+- Relevance filtering during ingestion
+- Completing the SQLite-backed ingestion workflow
 
 ### Planned
 
-- Relevance filtering during ingestion
-- Completing the SQLite-backed ingestion workflow
 - Prevent duplicate job records
 - Loading stored jobs for analysis
 - Salary-based score penalty
@@ -127,27 +127,33 @@ python -m job_intelligence ingest csv data/sample_jobs.csv
 Ingest jobs from Greenhouse into SQLite:
 
 ```bash
-python -m job_intelligence ingest greenhouse stripe   # Stripe is an example job board
+python -m job_intelligence ingest greenhouse stripe   # 'Stripe' is an example job board
 ```
 
 Using custom Database path:
+
 ```bash
 python -m job_intelligence ingest greenhouse stripe \
     --database data/databases/jobs.db
 ```
 
 Optional export to JSON:
+
 ```bash
+# Limit results to 10 jobs (optional)
 python -m job_intelligence ingest greenhouse stripe \
     --output data/raw/stripe_jobs.json \
-    --limit 10  # (Optional)
+    --limit 10  
 ```
 ## Testing
+
 Functional verification
+
 ```bash
 pytest
 ```
 Linting and Formatting
+
 ```bash
 pre-commit run --all-files
 ```
@@ -156,78 +162,20 @@ pre-commit run --all-files
 
 ```text
 job-intelligence/
-├── .github/
-│   └── workflows/
-│       ├── quality.yml
-│       └── tests.yml
-├── config/
-│   ├── aliases.json
-│   ├── candidate.json
-│   ├── categories.json
-│   ├── education.json
-│   ├── skills.json
-│   └── skills_dictionary.json
-├── data/
-│   ├── cache/ ......
-│   ├── databases/ ......
-│   ├── processed/ ......
-│   ├── raw/ ......
-│   ├── sample_candidate.json
-│   └── sample_jobs.csv
-├── src/
-│   └── job_intelligence/
-│       ├── analysis/
-│       │   ├── __init__.py
-│       │   ├── category.py
-│       │   └── skills.py
-│       ├── extraction/
-│       │   ├── __init__.py
-│       │   ├── education.py
-│       │   ├── parser.py
-│       │   └── salary.py
-│       ├── ingestion/
-│       │   ├── __init__.py
-│       │   ├── base.py
-│       │   ├── csv_connector.py
-│       │   ├── greenhouse_connector.py
-│       │   └── registry.py
-│       ├── matching/
-│       │   ├── __init__.py
-│       │   ├── matcher.py
-│       │   ├── ranking.py
-│       │   └── scoring.py
-│       ├── processing/
-│       │   ├── __init__.py
-│       │   ├── filters.py
-│       │   └── pipeline.py
-│       ├── storage/
-│       │   ├── migrations/
-│       │   │   └── 001_initial.sql
-│       │   ├── __init__.py
-│       │   └── sqlite_store.py
-│       ├── __init__.py
-│       ├── __main__.py
-│       ├── candidate_loader.py
-│       ├── cli.py
-│       ├── loader.py
-│       ├── main.py
-│       ├── models.py
-│       ├── normalization.py
-│       └── report.py
-├── tests/ ......
-├── tools/ ......
-├── .gitignore
-├── .pre-commit-config.yaml
-├── AGENTS.md
-├── ARCHITECTURE.md
-├── CONTRIBUTING.md
-├── LICENSE
-├── pyproject.toml
+├── config/          # Skills, categories, education mappings
+├── data/            # Raw, processed, cache, and database files
+├── src/job_intelligence/
+│   ├── analysis/    # Skill and category analysis
+│   ├── extraction/  # Parsing and data extraction
+│   ├── ingestion/   # Job board and csv connectors
+│   ├── matching/    # Candidate-job matching and scoring
+│   ├── processing/  # Filtering and processing pipelines
+│   └── storage/     # Persistence models, SQLite
+├── tests/
+├── tools/
 ├── README.md
-├── ROADMAP.md
-├── TODO.md
-├── uv.lock
-└── VISION.md
+├── ARCHITECTURE.md
+└── pyproject.toml
 ```
 
 <!-- PROJECT_STRUCTURE_END -->
