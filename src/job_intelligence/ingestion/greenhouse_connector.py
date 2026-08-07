@@ -7,6 +7,7 @@ import requests
 from job_intelligence.ingestion.base import JobConnector
 from job_intelligence.models import JobPosting
 from job_intelligence.extraction.parser import parse_job_description
+from job_intelligence.normalization import normalize_url
 
 
 class GreenhouseConnector(JobConnector):
@@ -35,6 +36,7 @@ class GreenhouseConnector(JobConnector):
         for item in data["jobs"]:
             cleaned_description = self._clean_description(item.get("content", "")) or ""
             parse_kwargs = {
+                "url": normalize_url(item.get("absolute_url", "")),
                 "title": item.get("title"),
                 "company": self._extract_company(item),
                 "location": item.get("location", {}).get("name"),
