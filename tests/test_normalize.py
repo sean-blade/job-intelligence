@@ -1,4 +1,4 @@
-from job_intelligence.normalization import normalize_skill, skill_in_text
+from job_intelligence.normalization import normalize_skill, skill_in_text, normalize_url
 from job_intelligence.models import CandidateProfile, JobPosting
 from job_intelligence.matching.matcher import match_candidate
 
@@ -65,3 +65,9 @@ def test_skill_matches_word_boundaries():
     assert not skill_in_text("cad", "Dedicated engineer")
     assert not skill_in_text("c", "CAD is required")
     assert not skill_in_text("r", "Required experience")
+
+
+def test_normalize_url_removes_trailing_slash():
+    assert (
+        normalize_url("https://example.com/job/123/") == "https://example.com/job/123"
+    )

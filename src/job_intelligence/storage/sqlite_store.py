@@ -17,7 +17,7 @@ class SQLiteStore:
         self.cursor.execute("""
             CREATE TABLE IF NOT EXISTS jobs (
                 id INTEGER PRIMARY KEY,
-                url TEXT NOT NULL UNIQUE,
+                url TEXT UNIQUE,
                 title TEXT,
                 company TEXT,
                 location TEXT,
@@ -109,22 +109,23 @@ class SQLiteStore:
 
         for row in rows:
             salary = (
-                SalaryRange(minimum=row[5], maximum=row[6])
-                if row[5] is not None or row[6] is not None
+                SalaryRange(minimum=row[6], maximum=row[7])
+                if row[6] is not None or row[7] is not None
                 else None
             )
 
             job = JobPosting(
-                title=row[0],
-                company=row[1],
-                location=row[2],
-                description=row[3],
-                relevant=bool(row[4]),
+                url=row[0],
+                title=row[1],
+                company=row[2],
+                location=row[3],
+                description=row[4],
+                relevant=bool(row[5]),
                 salary=salary,
-                education=json.loads(row[7]) if row[7] else [],
+                education=json.loads(row[8]) if row[8] else [],
                 extracted_skills=ExtractedSkills(
-                    required=json.loads(row[8]) if row[8] else [],
-                    preferred=json.loads(row[9]) if row[9] else [],
+                    required=json.loads(row[9]) if row[9] else [],
+                    preferred=json.loads(row[10]) if row[10] else [],
                 ),
             )
 
