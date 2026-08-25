@@ -1,6 +1,7 @@
 import json
 import re
 from pathlib import Path
+from urllib.parse import urlparse, urlunparse
 
 DEFAULT_ALIASES_FILE = Path("config/aliases.json")
 DEFAULT_EDUCATION_FILE = Path("config/education.json")
@@ -62,3 +63,18 @@ def edu_in_text(edu: str, text: str, edu_config: Path = DEFAULT_EDUCATION_FILE) 
 def hourly_to_annual(hourly_wage: float) -> int:
     """Convert an hourly wage to its full-time annual equivalent."""
     return round(hourly_wage * 2_080)
+
+
+def normalize_url(url: str) -> str:
+    parsed = urlparse(url)
+
+    return urlunparse(
+        (
+            parsed.scheme.lower(),
+            parsed.netloc.lower(),
+            parsed.path.rstrip("/"),
+            "",
+            "",
+            "",
+        )
+    )

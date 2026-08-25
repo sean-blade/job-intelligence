@@ -196,6 +196,7 @@ def parse_job_description(
     company: str,
     location: str,
     description: str,
+    url: str | None = None,
     skills_file: Path = DEFAULT_SKILLS_FILE,
 ) -> JobPosting:
     """
@@ -207,6 +208,7 @@ def parse_job_description(
     salary = extract_salary(description)
 
     return JobPosting(
+        url=url,
         title=title,
         company=company,
         location=location,
