@@ -193,8 +193,8 @@ job-intelligence/
 - [x] Generate readable match reports
 - [x] Export jobs to JSON
 - [x] Persist jobs in SQLite
-- [ ] Filter irrelevant jobs during ingestion
-- [ ] Prevent duplicate stored jobs
+- [x] Filter irrelevant jobs during ingestion
+- [x] Prevent duplicate stored jobs
 - [ ] Match and analyze directly from SQLite
 - [ ] Run ingestion automatically on a server
 - [ ] Provide a web dashboard
